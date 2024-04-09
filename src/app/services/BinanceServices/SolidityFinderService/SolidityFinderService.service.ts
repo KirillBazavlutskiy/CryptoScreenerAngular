@@ -13,9 +13,11 @@ import {BinanceOrdersCalculatingKit} from "../BinanceOrdersCalculationKit/Binanc
 
 export class SolidityFinderService {
   private client;
+  binanceOrdersCalculatingKit: BinanceOrdersCalculatingKit;
 
   constructor() {
     this.client = Binance();
+    this.binanceOrdersCalculatingKit = new BinanceOrdersCalculatingKit();
   }
 
   FindSolidity = async (ticket: DailyStatsResult): Promise<SolidityModel | null> => {
@@ -54,7 +56,7 @@ export class SolidityFinderService {
         Quantity: maxOrder,
         MaxQuantity: maxOrder,
         Ratio: solidityRatio,
-        UpToPrice: BinanceOrdersCalculatingKit.CalcSimplifiedRatio(upToPrice, solidityType) * 100
+        UpToPrice: this.binanceOrdersCalculatingKit.CalcSimplifiedRatio(upToPrice, solidityType) * 100
       };
 
       return {
@@ -90,7 +92,7 @@ export class SolidityFinderService {
                 solidityInfo.Solidity.Ratio > ratioAccess &&
                 (
                   upToPriceAccess === 0 ||
-                  BinanceOrdersCalculatingKit.CalcSimplifiedRatio(solidityInfo.Solidity.UpToPrice, solidityInfo.Solidity.Type) < upToPriceAccess / 100
+                  this.binanceOrdersCalculatingKit.CalcSimplifiedRatio(solidityInfo.Solidity.UpToPrice, solidityInfo.Solidity.Type) < upToPriceAccess / 100
                 )
               ) {
                 symbolsWithSolidity.push(solidityInfo);
