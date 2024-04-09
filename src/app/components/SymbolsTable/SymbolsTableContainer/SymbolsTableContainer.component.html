@@ -1,0 +1,6 @@
+<div class="w-screen h-full overflow-y-scroll px-[20px] gap-y-[5px] gap-x-[6px] grid grid-cols-8 bg-gray-900 no-scrollbar">
+  <app-symbols-table-item
+    *ngFor="let solidityModel of symbolsList$ | async"
+    [solidityInfo]="solidityModel"
+  ></app-symbols-table-item>
+</div>
