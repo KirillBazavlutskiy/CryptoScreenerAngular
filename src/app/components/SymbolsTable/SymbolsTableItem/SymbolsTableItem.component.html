@@ -1,0 +1,25 @@
+<div
+  class="w-full h-[25px] flex justify-between items-center border-[2px] hover:bg-gray-600 overflow-hidden transition-colors rounded-md"
+  [ngClass]="{
+      'bg-blue-200': solidityInfo.Solidity.Ratio > 10,
+      'bg-blue-500': solidityInfo.Solidity.Ratio > 15,
+      'bg-blue-800': solidityInfo.Solidity.Ratio > 20,
+  }"
+>
+  <div class="flex h-full items-center gap-[5px]">
+    <div
+      class="h-full w-[6px]"
+      [ngClass]="{
+        'bg-orange-200': solidityInfo.Solidity.UpToPrice >= 3,
+        'bg-orange-500': solidityInfo.Solidity.UpToPrice >= 1 && solidityInfo.Solidity.UpToPrice < 3,
+        'bg-orange-800': solidityInfo.Solidity.UpToPrice >= 0 && solidityInfo.Solidity.UpToPrice < 1,
+      }"
+    ></div>
+    <span class="text-white text-[12px]">{{solidityInfo.Symbol}}</span>
+  </div>
+  <div class="flex h-full items-center gap-[5px] pr-[4px]">
+    <span class="text-white text-right w-[30px] text-[12px]">{{BinanceOrdersCalculatingKit.RoundUp(solidityInfo.Solidity.Ratio, 1)}}</span>
+    <span class="text-white text-right w-[50px] text-[12px]">{{BinanceOrdersCalculatingKit.RoundUp(solidityInfo.Solidity.Price, 2)}}</span>
+    <span class="text-white text-right w-[50px] text-[12px]">{{BinanceOrdersCalculatingKit.RoundUp(solidityInfo.Solidity.UpToPrice, 2)}}</span>
+  </div>
+</div>
