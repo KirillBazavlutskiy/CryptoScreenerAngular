@@ -16,5 +16,8 @@ import {NgClass} from "@angular/common";
 
 export class SymbolsTableItemComponent {
   @Input() solidityInfo!: SolidityModel;
-  protected readonly BinanceOrdersCalculatingKit = BinanceOrdersCalculatingKit;
+  binanceOrdersCalculatingKit: BinanceOrdersCalculatingKit;
+  constructor() {
+    this.binanceOrdersCalculatingKit = new BinanceOrdersCalculatingKit();
+  }
 }
