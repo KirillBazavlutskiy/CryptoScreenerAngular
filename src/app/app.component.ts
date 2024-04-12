@@ -5,7 +5,7 @@ import {
   SymbolsTableContainerComponent
 } from "./components/SymbolsTable/SymbolsTableContainer/SymbolsTableContainer.component";
 import {Store} from "@ngrx/store";
-import {FetchSymbolsListAction} from "./store/SymbolsListReducer/SymbolsList.actions";
+import {FetchSymbolsListAction} from "./store/SymbolsList/SymbolsList.actions";
 import {Observable} from "rxjs";
 import {StoreModel} from "./store/Store.model";
 import {AsyncPipe, NgClass} from "@angular/common";

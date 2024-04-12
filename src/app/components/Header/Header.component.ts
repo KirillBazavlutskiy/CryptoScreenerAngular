@@ -1,7 +1,7 @@
 import {Component} from "@angular/core";
 import {Store} from "@ngrx/store";
 import {StoreModel} from "../../store/Store.model";
-import {switchActivePageAction} from "../../store/ActivePageReducer/ActivePage.actions";
+import {switchActivePageAction} from "../../store/ActivePage/ActivePage.actions";
 
 @Component({
   selector: 'app-header',
