@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import {SymbolsListContainerComponent} from "./components/SymbolsList/symbolsListContainer/symbolsListContainer.component";
+import {SymbolsListContainerComponent} from "./components/SymbolsList/SymbolsListContainer/symbolsListContainer.component";
 import {
   SymbolsTableContainerComponent
 } from "./components/SymbolsTable/SymbolsTableContainer/SymbolsTableContainer.component";
@@ -10,6 +10,9 @@ import {Observable} from "rxjs";
 import {StoreModel} from "./store/Store.model";
 import {AsyncPipe, NgClass} from "@angular/common";
 import {HeaderComponent} from "./components/Header/Header.component";
+import {
+  SymbolsChartsContainerComponent
+} from "./components/SymbolsChartPage/SymbolsChartsContainer/SymbolsChartsContainer.component";
 
 @Component({
   selector: 'app-root',
@@ -23,6 +26,7 @@ import {HeaderComponent} from "./components/Header/Header.component";
     NgClass,
     HeaderComponent,
     AsyncPipe,
+    SymbolsChartsContainerComponent,
   ],
 })
 

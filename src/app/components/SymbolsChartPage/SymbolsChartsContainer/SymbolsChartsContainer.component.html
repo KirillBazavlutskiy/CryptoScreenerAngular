@@ -1,0 +1,19 @@
+<div class="w-full h-full flex">
+  <app-symbols-chart
+    [canvasId]="CanvasChartId1"
+    candleChartInterval="5m"
+    class="w-1/2"
+  ></app-symbols-chart>
+  <div class="w-1/2 h-full flex flex-col">
+    <app-symbols-chart
+      [canvasId]="CanvasChartId2"
+      class="w-full h-1/2"
+      candleChartInterval="30m"
+    ></app-symbols-chart>
+    <app-symbols-chart
+      [canvasId]="CanvasChartId3"
+      class="w-full h-1/2"
+      candleChartInterval="1d"
+    ></app-symbols-chart>
+  </div>
+</div>

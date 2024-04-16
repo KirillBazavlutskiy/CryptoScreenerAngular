@@ -1,0 +1,10 @@
+<div class="charts-container block w-full h-full p-[20px]">
+  @if (canvasId) {
+    <app-canvas-candlestick-chart
+      [CandlestickData]="CandlestickData"
+      [canvasId]="canvasId"
+      [SolidityPrice]="((SelectedSymbol$ | async)?.Solidity?.Price?.toString()) || null"
+      class="block w-full h-full"
+    ></app-canvas-candlestick-chart>
+  }
+</div>

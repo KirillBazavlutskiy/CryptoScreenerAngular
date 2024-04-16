@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {FetchSymbolsListAction, FetchSymbolsListSuccessAction} from "./SymbolsList.actions";
-import {catchError, EMPTY, from, map, mergeMap} from "rxjs";
+import {catchError, EMPTY, map, mergeMap} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {SolidityModel} from "../../models/SolidityFinderModels.model";
 

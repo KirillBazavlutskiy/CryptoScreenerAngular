@@ -1,6 +1,10 @@
-<div class="w-screen h-full overflow-y-scroll px-[20px] gap-y-[5px] gap-x-[6px] grid grid-cols-8 bg-gray-900 no-scrollbar">
-  <app-symbols-table-item
-    *ngFor="let solidityModel of symbolsList$ | async"
-    [solidityInfo]="solidityModel"
-  ></app-symbols-table-item>
+<div
+  class="w-screen h-full overflow-y-scroll py-[10px] px-[20px] gap-y-[5px] gap-x-[6px] grid  bg-gray-900 no-scrollbar
+  grid-cols-1 usm:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7"
+>
+  @for (solidityModel of symbolsList$ | async; track solidityModel.QuoteVolume) {
+    <app-symbols-table-item
+      [solidityInfo]="solidityModel"
+    ></app-symbols-table-item>
+  }
 </div>
