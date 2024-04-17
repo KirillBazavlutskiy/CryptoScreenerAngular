@@ -3,16 +3,18 @@ import {SolidityModel} from "../../../models/SolidityFinderModels.model";
 import {
   BinanceOrdersCalculatingKit
 } from "../../../services/BinanceServices/BinanceOrdersCalculationKit/BinanceOrdersCalculationKit.service";
-import {NgClass} from "@angular/common";
+import {AsyncPipe, NgClass} from "@angular/common";
 import {Store} from "@ngrx/store";
 import {StoreModel} from "../../../store/Store.model";
 import {selectedSymbolAction} from "../../../store/SelectedSymbol/SelectedSymbol.actions";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-symbol-item',
   standalone: true,
   imports: [
-    NgClass
+    NgClass,
+    AsyncPipe
   ],
   templateUrl: 'symbolsListItem.component.html'
 })
@@ -20,8 +22,10 @@ import {selectedSymbolAction} from "../../../store/SelectedSymbol/SelectedSymbol
 export class SymbolsListItemComponent {
   @Input() symbolTicket!: SolidityModel;
   binanceOrdersCalculatingKit: BinanceOrdersCalculatingKit;
+  activeSymbol$: Observable<SolidityModel | null>;
 
   ClickHandler: () => void;
+
   constructor(
     private store: Store<StoreModel>
   ) {
@@ -29,6 +33,7 @@ export class SymbolsListItemComponent {
       this.store.dispatch(selectedSymbolAction({ solidityInfo: this.symbolTicket }))
     }
 
+    this.activeSymbol$ = this.store.select("selectedSymbol")
     this.binanceOrdersCalculatingKit = new BinanceOrdersCalculatingKit();
   }
 }

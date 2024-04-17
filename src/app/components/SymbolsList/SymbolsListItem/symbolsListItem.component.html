@@ -1,8 +1,11 @@
 <div
   class="w-full hover:bg-blue-600 flex justify-between items-center px-[10px]"
+  [ngClass]="{ 'bg-blue-400': (activeSymbol$ | async)?.Symbol === this.symbolTicket.Symbol }"
   (click)="ClickHandler()"
 >
   <span class="text-white">{{symbolTicket.Symbol}}</span>
-  <span class="text-white">{{binanceOrdersCalculatingKit.RoundUp(symbolTicket.Solidity.Ratio, 1)}}</span>
-  <span class="text-white">{{symbolTicket.Price}}</span>
+  <div class="flex justify-end w-[120px]">
+    <span class="text-white text-right text-sm">{{binanceOrdersCalculatingKit.RoundUp(symbolTicket.Solidity.Ratio, 1)}}</span>
+    <span class="text-white text-right text-sm w-[85px]">{{symbolTicket.Solidity.Price}}</span>
+  </div>
 </div>
