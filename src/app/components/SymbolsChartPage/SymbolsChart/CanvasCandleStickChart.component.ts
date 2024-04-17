@@ -19,6 +19,7 @@ import {CandlestickBinanceData, CandleStickDataChartModel} from "../../../models
 import {TSciChart} from "scichart/types/TSciChart";
 
 async function initCandlestickChart(chartId: string) {
+  SciChartSurface.useWasmFromCDN();
   const { sciChartSurface, wasmContext } = await SciChartSurface.create(chartId, {
     theme: {
       type: "Dark"
