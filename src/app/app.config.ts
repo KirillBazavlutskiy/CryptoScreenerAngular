@@ -9,6 +9,8 @@ import {provideEffects} from "@ngrx/effects";
 import {SymbolsListLoadEffect} from "./store/SymbolsList/SymbolsList.effect";
 import {activePageReducer} from "./store/ActivePage/ActivePage.reducer";
 import {provideHttpClient, withFetch} from "@angular/common/http";
+import {selectedSymbolReducer} from "./store/SelectedSymbol/SelectedSymbol.reducer";
+import {SelectedSymbolEffect} from "./store/SelectedSymbol/SelectedSymbol.effect";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,10 +18,12 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch()),
     provideStore<StoreModel>({
       symbolsList: symbolsListReducer,
-      symbolsListPageActive: activePageReducer
+      symbolsListPageActive: activePageReducer,
+      selectedSymbol: selectedSymbolReducer
     }),
     provideEffects([
-      SymbolsListLoadEffect
+      SymbolsListLoadEffect,
+      SelectedSymbolEffect
     ])
   ],
 };

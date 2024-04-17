@@ -15,7 +15,7 @@ export class HeaderComponent {
     private store: Store<StoreModel>
   ) {
     this.ButtonClickHandler = () => {
-      this.store.dispatch(switchActivePageAction())
+      this.store.dispatch(switchActivePageAction({}))
     }
   }
 

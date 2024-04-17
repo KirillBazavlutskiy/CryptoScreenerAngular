@@ -1,4 +1,7 @@
-<div class="w-full hover:bg-blue-600 flex justify-between items-center px-[10px]">
+<div
+  class="w-full hover:bg-blue-600 flex justify-between items-center px-[10px]"
+  (click)="ClickHandler()"
+>
   <span class="text-white">{{symbolTicket.Symbol}}</span>
   <span class="text-white">{{binanceOrdersCalculatingKit.RoundUp(symbolTicket.Solidity.Ratio, 1)}}</span>
   <span class="text-white">{{symbolTicket.Price}}</span>

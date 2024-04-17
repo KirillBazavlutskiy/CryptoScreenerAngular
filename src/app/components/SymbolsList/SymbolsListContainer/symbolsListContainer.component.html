@@ -1,9 +1,9 @@
-<div class="w-[220px] overflow-hidden h-screen flex-col justify-start bg-gray-900">
+<div class="w-full overflow-hidden rounded-lg h-full flex-col justify-start bg-gray-900">
   <div class="w-full flex justify-between items-start text-white h-[40px] px-[10px]">
     <span class="text-[18px] font-semibold">Founded symbols:</span>
     <span class="text-[18px] font-semibold">{{(symbolsList$ | async)?.length}}</span>
   </div>
-  <div class="w-full h-[calc(100vh_-_40px)] overflow-y-scroll flex-col justify-start no-scrollbar">
+  <div class="w-full h-[calc(100%_-_40px)] overflow-y-scroll flex-col justify-start no-scrollbar">
     <app-symbol-item
       *ngFor="let solidityModel of symbolsList$ | async"
       [symbolTicket]="solidityModel"

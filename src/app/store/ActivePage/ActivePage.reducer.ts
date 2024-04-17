@@ -3,5 +3,5 @@ import {switchActivePageAction} from "./ActivePage.actions";
 
 export const activePageReducer = createReducer<boolean>(
   false,
-  on(switchActivePageAction, state => !state)
+  on(switchActivePageAction, (state, { pageState }) => pageState ?? !state)
 );
