@@ -24,6 +24,4 @@ export class SymbolsListContainerComponent {
   constructor(private store: Store<StoreModel>) {
     this.symbolsList$ = store.select('symbolsList')
   }
-
-  protected readonly length = length;
 }

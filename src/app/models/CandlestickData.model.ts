@@ -1,9 +1,9 @@
-export interface CandlestickDataModel {
-  x: string,
-  o: number,
-  h: number,
-  l: number,
-  c: number
+export interface CandleStickDataChartModel {
+  xValues: number[] | undefined,
+  openValues: number[] | undefined,
+  highValues: number[] | undefined,
+  lowValues: number[] | undefined,
+  closeValues: number[] | undefined
 }
 
 export interface CandlestickBinanceData {

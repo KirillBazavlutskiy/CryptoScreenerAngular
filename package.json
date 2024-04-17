@@ -3,11 +3,11 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "copyWasm": "copy-files-from-to --config copy-files-from-to.json",
+    "start": "npm run copyWasm && ng serve",
+    "build": "npm run copyWasm && ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "startWithApi": "ng serve && node dist/tsc-out/api/serverApi.js"
+    "test": "ng test"
   },
   "private": true,
   "dependencies": {
@@ -22,25 +22,14 @@
     "@ngrx/effects": "^17.1.1",
     "@ngrx/store": "^17.1.1",
     "@types/node": "^20.12.7",
-    "anychart": "^8.12.1",
-    "binance-api-node": "^0.12.7",
-    "chart.js": "^4.4.2",
-    "chartjs-adapter-date-fns": "^3.0.0",
-    "chartjs-chart-financial": "^0.2.1",
-    "chartjs-plugin-annotation": "^3.0.1",
-    "chartjs-plugin-crosshair": "^2.0.0",
-    "chartjs-plugin-zoom": "^2.0.1",
-    "ng2-charts": "^6.0.0",
+    "copy-files-from-to": "^3.9.1",
     "rxjs": "~7.8.0",
-    "scichart": "^3.3.577",
-    "tslib": "^2.3.0",
-    "zone.js": "~0.14.3"
+    "scichart": "^3.3.577"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^17.3.3",
     "@angular/cli": "^17.3.3",
     "@angular/compiler-cli": "^17.3.0",
-    "@types/chartjs-plugin-crosshair": "^1.1.4",
     "@types/jasmine": "~5.1.0",
     "autoprefixer": "^10.4.19",
     "jasmine-core": "~5.1.0",
