@@ -1,8 +1,10 @@
 import {AfterViewInit, Component, Input, OnChanges, OnDestroy, SimpleChanges} from '@angular/core';
 import {
   CursorModifier,
+  DateLabelProvider,
   DateTimeNumericAxis,
-  EAutoRange, ECoordinateMode,
+  EAutoRange,
+  ECoordinateMode,
   EHorizontalAnchorPoint,
   ENumericFormat,
   EVerticalAnchorPoint,
@@ -41,9 +43,7 @@ async function initCandlestickChart(chartId: string) {
   sciChartSurface.applyTheme(customChartTheme);
 
   const xAxis = new DateTimeNumericAxis(wasmContext, {
-    labelProvider: new SmartDateLabelProvider({
-      labelFormat: ENumericFormat.Date_HHMMSS
-    }),
+    labelProvider: new SmartDateLabelProvider(),
     labelStyle: {
       color: "#fff"
     },
@@ -156,6 +156,7 @@ export class CanvasCandleStickChartComponent implements OnDestroy, OnChanges, Af
 
   ngOnChanges(changes: SimpleChanges) {
     if (this.sciChartSurface && this.CandlestickData.length !== 0 && this.SolidityModel && this.ChartTimeframe) {
+      console.log(this.CandlestickData);
       this.updateChartData();
 
       this.sciChartSurface.annotations.clear();
@@ -176,7 +177,7 @@ export class CanvasCandleStickChartComponent implements OnDestroy, OnChanges, Af
 
   private updateChartData() {
     this.CandlestickDataCanvas = {
-      xValues: this.CandlestickData.map(candle => new Date(candle.openTime).getTime()),
+      xValues: this.CandlestickData.map(candle => new Date(candle.openTime).getTime() / 1000),
       openValues: this.CandlestickData.map(candle => Number(candle.open)),
       highValues: this.CandlestickData.map(candle => Number(candle.high)),
       lowValues: this.CandlestickData.map(candle => Number(candle.low)),

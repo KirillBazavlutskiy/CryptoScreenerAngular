@@ -2,9 +2,9 @@
   <app-symbols-chart
     [canvasId]="CanvasChartId1"
     candleChartInterval="5m"
-    class="w-1/2 rounded-lg overflow-hidden"
+    class="w-full md:w-1/2 rounded-lg overflow-hidden"
   ></app-symbols-chart>
-  <div class="w-1/2 h-full flex flex-col gap-[5px]">
+  <div class="hidden md:flex w-1/2 h-full flex-col gap-[5px]">
     <app-symbols-chart
       [canvasId]="CanvasChartId2"
       class="w-full h-1/2 rounded-lg overflow-hidden"
