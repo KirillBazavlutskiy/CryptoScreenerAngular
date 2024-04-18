@@ -1,10 +1,17 @@
-<div class="charts-container block w-full h-full">
+<div class="charts-container block relative w-full h-full">
   @if (canvasId) {
     <app-canvas-candlestick-chart
       [CandlestickData]="CandlestickData"
       [canvasId]="canvasId"
-      [SolidityPrice]="((SelectedSymbol$ | async)?.Solidity?.Price?.toString()) || null"
+      [SolidityModel]="(SelectedSymbol$ | async) || null"
+      [ChartTimeframe]="candleChartInterval"
       class="block w-full h-full"
     ></app-canvas-candlestick-chart>
+
+    @if (isLoading) {
+      <div class="w-full h-full flex items-center justify-center absolute top-0 left-0 bg-gray-900">
+        <div class="w-[40px] h-[40px] bg-transparent border-2 border-[#fff] animate-spin"></div>
+      </div>
+    }
   }
 </div>
