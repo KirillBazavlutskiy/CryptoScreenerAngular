@@ -1,7 +1,7 @@
 import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
 import {StoreModel} from "../../../store/Store.model";
-import {Observable, switchMap} from "rxjs";
+import {async, Observable, switchMap, tap} from "rxjs";
 import {SolidityModel} from "../../../models/SolidityFinderModels.model";
 import {CandleChartInterval, CandlestickBinanceData} from "../../../models/CandlestickData.model";
 import {HttpClient} from "@angular/common/http";
@@ -24,7 +24,7 @@ export class SymbolsChartComponent implements OnInit {
 
   SelectedSymbol$: Observable<SolidityModel | null>;
   CandlestickData: CandlestickBinanceData[] = [];
-  isLoading: boolean = true;
+  isLoading: boolean = false;
   error: string | null = null;
 
   constructor(
@@ -38,6 +38,9 @@ export class SymbolsChartComponent implements OnInit {
     this.SelectedSymbol$ = this.store.select('selectedSymbol');
 
     this.SelectedSymbol$.pipe(
+      tap(() => {
+        if (this.CandlestickData.length !== 0) this.isLoading = true;
+      }),
       switchMap(selectedSymbol => {
         if (selectedSymbol) {
           return this.httpClient

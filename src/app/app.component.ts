@@ -11,8 +11,8 @@ import {StoreModel} from "./store/Store.model";
 import {AsyncPipe, NgClass} from "@angular/common";
 import {HeaderComponent} from "./components/Header/Header.component";
 import {
-  SymbolsChartsContainerComponent
-} from "./components/SymbolsChartPage/SymbolsChartsContainer/SymbolsChartsContainer.component";
+  SymbolsChartsPageContainerComponent
+} from "./components/SymbolsChartPage/SymbolsChartsPageContainer/SymbolsChartsPageContainer.component";
 
 @Component({
   selector: 'app-root',
@@ -26,7 +26,7 @@ import {
     NgClass,
     HeaderComponent,
     AsyncPipe,
-    SymbolsChartsContainerComponent,
+    SymbolsChartsPageContainerComponent,
   ],
 })
 

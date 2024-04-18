@@ -2,15 +2,15 @@ import {Component} from "@angular/core";
 import {SymbolsChartComponent} from "../SymbolsChart/SymbolsChart.component";
 
 @Component({
-  selector: 'app-symbols-charts-container',
-  templateUrl: 'SymbolsChartsContainer.component.html',
+  selector: 'app-symbols-charts',
+  templateUrl: 'symbols-charts.component.html',
   imports: [
     SymbolsChartComponent
   ],
   standalone: true
 })
 
-export class SymbolsChartsContainerComponent {
+export class SymbolsChartsComponent {
   CanvasChartId1: string = "";
   CanvasChartId2: string = "";
   CanvasChartId3: string = "";
@@ -20,12 +20,4 @@ export class SymbolsChartsContainerComponent {
     this.CanvasChartId2 = "canvas2";
     this.CanvasChartId3 = "canvas3";
   }
-
-  // SelectedSymbol$: Observable<SolidityModel | null>;
-  //
-  // constructor(
-  //   private store: Store<StoreModel>,
-  // ) {
-  //   this.SelectedSymbol$ = store.select('selectedSymbol')
-  // }
 }

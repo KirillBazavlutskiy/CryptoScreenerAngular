@@ -1,9 +1,13 @@
 import {AfterViewInit, Component, Input, OnChanges, OnDestroy, SimpleChanges} from '@angular/core';
 import {
   CursorModifier,
+  DateLabelProvider,
   DateTimeNumericAxis,
   EAutoRange,
+  ECoordinateMode,
+  EHorizontalAnchorPoint,
   ENumericFormat,
+  EVerticalAnchorPoint,
   EXyDirection,
   FastCandlestickRenderableSeries,
   HorizontalLineAnnotation,
@@ -12,30 +16,58 @@ import {
   OhlcDataSeries,
   SciChartSurface,
   SmartDateLabelProvider,
+  TextAnnotation,
   ZoomExtentsModifier,
   ZoomPanModifier
 } from 'scichart';
-import {CandlestickBinanceData, CandleStickDataChartModel} from "../../../models/CandlestickData.model";
+import {
+  CandleChartInterval,
+  CandlestickBinanceData,
+  CandleStickDataChartModel
+} from "../../../models/CandlestickData.model";
 import {TSciChart} from "scichart/types/TSciChart";
+import {CustomChartTheme} from "../../../models/CustomChartTheme.model";
+import {SolidityModel} from "../../../models/SolidityFinderModels.model";
 
 async function initCandlestickChart(chartId: string) {
   SciChartSurface.useWasmFromCDN();
+  SciChartSurface.UseCommunityLicense()
   const { sciChartSurface, wasmContext } = await SciChartSurface.create(chartId, {
     theme: {
       type: "Dark"
-    }
+    },
   });
 
+  const customChartTheme = new CustomChartTheme();
+
+  sciChartSurface.applyTheme(customChartTheme);
+
   const xAxis = new DateTimeNumericAxis(wasmContext, {
-    labelProvider: new SmartDateLabelProvider({
-      labelFormat: ENumericFormat.Date_HHMMSS
-    })
+    labelProvider: new SmartDateLabelProvider(),
+    labelStyle: {
+      color: "#fff"
+    },
+    majorTickLineStyle: { strokeThickness: 1, color: "#fff", tickSize: 8},
+    minorTickLineStyle: { strokeThickness: 1, color: "#fff", tickSize: 4},
+    axisBorder: {
+      borderTop: 1,
+      color: "#fff"
+    }
   })
   const yAxis = new NumericAxis(wasmContext, {
     autoRange: EAutoRange.Always,
     labelFormat: ENumericFormat.Decimal,
     cursorLabelFormat: ENumericFormat.Decimal,
     labelPrecision: 3,
+    labelStyle: {
+      color: "#fff"
+    },
+    majorTickLineStyle: { strokeThickness: 1, color: "#fff", tickSize: 8},
+    minorTickLineStyle: { strokeThickness: 1, color: "#fff", tickSize: 4},
+    axisBorder: {
+      borderLeft: 1,
+      color: "#fff"
+    }
   })
 
   sciChartSurface.xAxes.add(xAxis);
@@ -66,13 +98,29 @@ async function initCandlestickChart(chartId: string) {
   })
 
   const cursorModifier = new CursorModifier({
-    crosshairStroke: "#CCC",
-    axisLabelStroke: "#FFF",
-    axisLabelFill: "#CCC"
+    crosshairStroke: "#ccc",
+    axisLabelStroke: "#fff",
+    axisLabelFill: "#ccc",
   })
 
   sciChartSurface.chartModifiers.add(zoomPanModifier, new ZoomExtentsModifier(), cursorModifier, mouseWheelZoomModifier);
   return { wasmContext, sciChartSurface };
+}
+
+const CreateWatermark = (text: string) => {
+  return new TextAnnotation({
+    x1: 0.5,
+    y1: 0.5,
+    xCoordinateMode: ECoordinateMode.Relative,
+    yCoordinateMode: ECoordinateMode.Relative,
+    horizontalAnchorPoint: EHorizontalAnchorPoint.Center,
+    verticalAnchorPoint: EVerticalAnchorPoint.Center,
+    text: text,
+    fontSize: 32,
+    fontWeight: 'Bold',
+    textColor: "#888888",
+    opacity: 0.5
+  });
 }
 
 
@@ -85,14 +133,14 @@ async function initCandlestickChart(chartId: string) {
 export class CanvasCandleStickChartComponent implements OnDestroy, OnChanges, AfterViewInit {
   @Input() canvasId!: string;
   @Input() CandlestickData!: CandlestickBinanceData[];
-  @Input() SolidityPrice!: string | null;
+  @Input() SolidityModel!: SolidityModel | null;
+  @Input() ChartTimeframe!: CandleChartInterval;
 
   sciChartSurface!: SciChartSurface;
   CandlestickDataCanvas!: CandleStickDataChartModel;
   wasmContext!: TSciChart;
 
   ngOnDestroy() {
-    console.log("Angular: ngOnDestroy");
     this.cleanupSciChart();
   }
 
@@ -107,27 +155,29 @@ export class CanvasCandleStickChartComponent implements OnDestroy, OnChanges, Af
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (this.sciChartSurface && this.CandlestickData.length !== 0) {
+    if (this.sciChartSurface && this.CandlestickData.length !== 0 && this.SolidityModel && this.ChartTimeframe) {
+      console.log(this.CandlestickData);
       this.updateChartData();
-    }
 
-    if (this.sciChartSurface && this.SolidityPrice) {
       this.sciChartSurface.annotations.clear();
 
       const horizontalLineAnnotation = new HorizontalLineAnnotation({
-        y1: Number(this.SolidityPrice),
-        stroke: '#FFA800',
-        strokeThickness: 2,
+        y1: Number(this.SolidityModel.Solidity.Price),
+        stroke: '#fff',
+        strokeThickness: 3,
         showLabel: true,
+        axisLabelFill: "#2563e8",
+        axisLabelStroke: "#fff"
       });
 
       this.sciChartSurface.annotations.add(horizontalLineAnnotation);
+      this.sciChartSurface.annotations.add(CreateWatermark(`${this.SolidityModel.Symbol} | ${this.ChartTimeframe.toUpperCase()}`))
     }
   }
 
   private updateChartData() {
     this.CandlestickDataCanvas = {
-      xValues: this.CandlestickData.map(candle => new Date(candle.openTime).getTime()),
+      xValues: this.CandlestickData.map(candle => new Date(candle.openTime).getTime() / 1000),
       openValues: this.CandlestickData.map(candle => Number(candle.open)),
       highValues: this.CandlestickData.map(candle => Number(candle.high)),
       lowValues: this.CandlestickData.map(candle => Number(candle.low)),
