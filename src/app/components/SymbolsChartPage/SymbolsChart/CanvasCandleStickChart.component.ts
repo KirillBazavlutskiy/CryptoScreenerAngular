@@ -1,29 +1,27 @@
 import {AfterViewInit, Component, Input, OnChanges, OnDestroy, SimpleChanges} from '@angular/core';
 import {
   CursorModifier,
-  DateLabelProvider,
-  DateTimeNumericAxis,
   EAutoRange,
   ECoordinateMode,
   EHorizontalAnchorPoint,
   ENumericFormat,
   EVerticalAnchorPoint,
   EXyDirection,
-  FastCandlestickRenderableSeries,
+  FastCandlestickRenderableSeries, FastColumnRenderableSeries,
   HorizontalLineAnnotation,
-  MouseWheelZoomModifier,
+  MouseWheelZoomModifier, NumberRange,
   NumericAxis,
   OhlcDataSeries,
   SciChartSurface,
   SmartDateLabelProvider,
-  TextAnnotation,
+  TextAnnotation, XyDataSeries,
   ZoomExtentsModifier,
-  ZoomPanModifier
+  ZoomPanModifier,
+  CategoryAxis
 } from 'scichart';
 import {
   CandleChartInterval,
-  CandlestickBinanceData,
-  CandleStickDataChartModel
+  CandlestickBinanceData
 } from "../../../models/CandlestickData.model";
 import {TSciChart} from "scichart/types/TSciChart";
 import {CustomChartTheme} from "../../../models/CustomChartTheme.model";
@@ -42,7 +40,7 @@ async function initCandlestickChart(chartId: string) {
 
   sciChartSurface.applyTheme(customChartTheme);
 
-  const xAxis = new DateTimeNumericAxis(wasmContext, {
+  const xAxis = new CategoryAxis(wasmContext, {
     labelProvider: new SmartDateLabelProvider(),
     labelStyle: {
       color: "#fff"
@@ -54,10 +52,12 @@ async function initCandlestickChart(chartId: string) {
       color: "#fff"
     }
   })
+
   const yAxis = new NumericAxis(wasmContext, {
     autoRange: EAutoRange.Always,
     labelFormat: ENumericFormat.Decimal,
     cursorLabelFormat: ENumericFormat.Decimal,
+    growBy: new NumberRange(0.1, 0.1),
     labelPrecision: 3,
     labelStyle: {
       color: "#fff"
@@ -70,31 +70,57 @@ async function initCandlestickChart(chartId: string) {
     }
   })
 
+  const volumeYAxis = new NumericAxis(
+    wasmContext,
+    {
+      id: "VolumeAxisId",
+      isVisible: false,
+      growBy: new NumberRange(0, 4)
+    })
+
   sciChartSurface.xAxes.add(xAxis);
   sciChartSurface.yAxes.add(yAxis);
+  sciChartSurface.yAxes.add(volumeYAxis);
 
   const candlestickSeries = new OhlcDataSeries(wasmContext, {
     xValues: [],
     openValues: [],
     highValues: [],
     lowValues: [],
-    closeValues: []
+    closeValues: [],
+    containsNaN: false,
+    isSorted: false
   });
 
-  candlestickSeries.containsNaN = false;
-  candlestickSeries.isSorted = false;
+  const volumeSeries = new XyDataSeries(wasmContext, {
+    xValues: [],
+    yValues: [],
+    containsNaN: false,
+    isSorted: false,
+  })
 
   const candlestickRenderableSeries = new FastCandlestickRenderableSeries(wasmContext, {
     dataSeries: candlestickSeries
   });
+
+  const volumeRenderableSeries = new FastColumnRenderableSeries(wasmContext, {
+    dataSeries: volumeSeries,
+    yAxisId: "VolumeAxisId",
+    strokeThickness: 0,
+    dataPointWidth: 0.7,
+    opacity: 0.3,
+    fill: "#fff"
+  });
+
   sciChartSurface.renderableSeries.add(candlestickRenderableSeries);
+  sciChartSurface.renderableSeries.add(volumeRenderableSeries);
 
   const zoomPanModifier = new ZoomPanModifier({
     xyDirection: EXyDirection.XDirection
   });
 
   const mouseWheelZoomModifier = new MouseWheelZoomModifier({
-    xyDirection: EXyDirection.XDirection
+    xyDirection: EXyDirection.XDirection,
   })
 
   const cursorModifier = new CursorModifier({
@@ -104,7 +130,15 @@ async function initCandlestickChart(chartId: string) {
   })
 
   sciChartSurface.chartModifiers.add(zoomPanModifier, new ZoomExtentsModifier(), cursorModifier, mouseWheelZoomModifier);
-  return { wasmContext, sciChartSurface };
+
+  return {
+    wasmContext,
+    sciChartSurface,
+    dataSeries: {
+      candlestickSeries,
+      volumeDataSeries: volumeSeries
+    }
+  };
 }
 
 const CreateWatermark = (text: string) => {
@@ -119,10 +153,9 @@ const CreateWatermark = (text: string) => {
     fontSize: 32,
     fontWeight: 'Bold',
     textColor: "#888888",
-    opacity: 0.5
+    opacity: 0.5,
   });
 }
-
 
 @Component({
   selector: 'app-canvas-candlestick-chart',
@@ -137,7 +170,10 @@ export class CanvasCandleStickChartComponent implements OnDestroy, OnChanges, Af
   @Input() ChartTimeframe!: CandleChartInterval;
 
   sciChartSurface!: SciChartSurface;
-  CandlestickDataCanvas!: CandleStickDataChartModel;
+
+  candlestickSeries!: OhlcDataSeries;
+  volumeSeries!: XyDataSeries;
+
   wasmContext!: TSciChart;
 
   ngOnDestroy() {
@@ -150,13 +186,14 @@ export class CanvasCandleStickChartComponent implements OnDestroy, OnChanges, Af
       initCandlestickChart(this.canvasId).then(res => {
         this.wasmContext = res.wasmContext
         this.sciChartSurface = res.sciChartSurface
+        this.candlestickSeries = res.dataSeries.candlestickSeries;
+        this.volumeSeries = res.dataSeries.volumeDataSeries;
       });
     }
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (this.sciChartSurface && this.CandlestickData.length !== 0 && this.SolidityModel && this.ChartTimeframe) {
-      console.log(this.CandlestickData);
       this.updateChartData();
 
       this.sciChartSurface.annotations.clear();
@@ -176,24 +213,31 @@ export class CanvasCandleStickChartComponent implements OnDestroy, OnChanges, Af
   }
 
   private updateChartData() {
-    this.CandlestickDataCanvas = {
-      xValues: this.CandlestickData.map(candle => new Date(candle.openTime).getTime() / 1000),
-      openValues: this.CandlestickData.map(candle => Number(candle.open)),
-      highValues: this.CandlestickData.map(candle => Number(candle.high)),
-      lowValues: this.CandlestickData.map(candle => Number(candle.low)),
-      closeValues: this.CandlestickData.map(candle => Number(candle.close))
-    }
-
-    const NewCandleStickDataSeries = new OhlcDataSeries(this.wasmContext, this.CandlestickDataCanvas)
-
     if (this.sciChartSurface) {
-      const renderableSeries = this.sciChartSurface.renderableSeries.get(0); // Получаем первый (или единственный) рендеринг серии
+      const xValues = this.CandlestickData.map(candle => new Date(candle[0]).getTime() / 1000);
+      const openValues = this.CandlestickData.map(candle => Number(candle[1]));
+      const highValues = this.CandlestickData.map(candle => Number(candle[2]));
+      const lowValues = this.CandlestickData.map(candle => Number(candle[3]));
+      const closeValues = this.CandlestickData.map(candle => Number(candle[4]));
+      const volumeValues = this.CandlestickData.map(candle => Number(candle[5]));
 
-      renderableSeries.dataSeries = NewCandleStickDataSeries;
+      this.candlestickSeries.clear();
+      this.candlestickSeries.appendRange(
+        xValues,
+        openValues,
+        highValues,
+        lowValues,
+        closeValues
+      );
+
+      this.volumeSeries.clear();
+      this.volumeSeries.appendRange(xValues, volumeValues);
 
       this.sciChartSurface.zoomExtents();
     }
   }
+
+
 
   cleanupSciChart() {
     if (this.sciChartSurface) {

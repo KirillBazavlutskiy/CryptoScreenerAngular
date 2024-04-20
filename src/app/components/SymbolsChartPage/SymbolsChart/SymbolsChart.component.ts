@@ -1,7 +1,7 @@
-import {Component, Input, OnChanges, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
 import {StoreModel} from "../../../store/Store.model";
-import {async, Observable, switchMap, tap} from "rxjs";
+import {Observable, switchMap, tap} from "rxjs";
 import {SolidityModel} from "../../../models/SolidityFinderModels.model";
 import {CandleChartInterval, CandlestickBinanceData} from "../../../models/CandlestickData.model";
 import {HttpClient} from "@angular/common/http";
@@ -45,7 +45,7 @@ export class SymbolsChartComponent implements OnInit {
         if (selectedSymbol) {
           return this.httpClient
             .get<CandlestickBinanceData[]>(
-              `https://cryptoscreenernodejsapi.onrender.com/api/GetKlines?symbol=${selectedSymbol.Symbol.toUpperCase()}&interval=${this.candleChartInterval}&limit=1500`
+              `https://api.binance.com/api/v3/klines?symbol=${selectedSymbol.Symbol.toUpperCase()}&interval=${this.candleChartInterval}&limit=1500`,
             );
         } else {
           return [];

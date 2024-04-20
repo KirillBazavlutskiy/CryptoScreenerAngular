@@ -1,24 +1,22 @@
-export interface CandleStickDataChartModel {
+export interface VolumeBarDataCanvasModel {
   xValues: number[] | undefined,
-  openValues: number[] | undefined,
-  highValues: number[] | undefined,
-  lowValues: number[] | undefined,
-  closeValues: number[] | undefined
+  yValues: number[] | undefined,
 }
 
-export interface CandlestickBinanceData {
-  openTime: number,
-  open: string,
-  high: string,
-  low: string,
-  close: string,
-  volume: string,
-  closeTime: number,
-  quoteVolume: string,
-  trades: number,
-  baseAssetVolume: string,
-  quoteAssetVolume: string
-}
+export type CandlestickBinanceData = [
+  number,   // Open time
+  string,   // Open
+  string,   // High
+  string,   // Low
+  string,   // Close (or latest price)
+  string,   // Volume
+  number,   // Close time
+  string,   // Base asset volume
+  number,   // Number of trades
+  string,   // Taker buy volume
+  string,   // Taker buy base asset volume
+  string    // Ignore.
+]
 
 export type CandleChartInterval =
   | '1m'
