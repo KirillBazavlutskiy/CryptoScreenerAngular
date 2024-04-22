@@ -1,7 +1,7 @@
 import {Component} from "@angular/core";
 import {SymbolsListItemComponent} from "../SymbolsListItem/symbolsListItem.component";
 import {AsyncPipe, NgForOf} from "@angular/common";
-import {SolidityModel} from "../../../models/SolidityFinderModels.model";
+import {SolidityModel} from "../../../models/RestApi/SolidityFinderModels.model";
 import {Observable} from "rxjs";
 import {Store} from '@ngrx/store';
 import {StoreModel} from "../../../store/Store.model";

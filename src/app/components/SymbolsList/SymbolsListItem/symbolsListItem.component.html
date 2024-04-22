@@ -1,11 +1,26 @@
 <div
-  class="w-full hover:bg-blue-600 flex justify-between items-center px-[10px]"
-  [ngClass]="{ 'bg-blue-400': (activeSymbol$ | async)?.Symbol === this.symbolTicket.Symbol }"
+  class="w-full h-[25px] border border-transparent hover:bg-blue-500/50 duration-[.0-4s] flex justify-between items-center px-[10px]"
+  [ngClass]="{
+    'bg-gray-600': (activeSymbol$ | async)?.Symbol === this.symbolTicket.Symbol,
+    'bg-blue-400': this.symbolTicket.Solidity.Ratio > 10,
+    'bg-blue-600': this.symbolTicket.Solidity.Ratio > 15,
+    'bg-blue-800': this.symbolTicket.Solidity.Ratio > 20,
+  }"
   (click)="ClickHandler()"
 >
-  <span class="text-white">{{symbolTicket.Symbol}}</span>
-  <div class="flex justify-end w-[120px]">
+  <div class="h-full flex items-center">
+    <div
+      class="inline aspect-square w-[16px] border-[2px] border-[#fff] rounded-full mr-[6px]"
+      [ngClass]="{
+        'bg-green-200': this.symbolTicket.Solidity.UpToPrice >= 3,
+        'bg-green-500': this.symbolTicket.Solidity.UpToPrice >= 1 && this.symbolTicket.Solidity.UpToPrice < 3,
+        'bg-green-800': this.symbolTicket.Solidity.UpToPrice >= 0 && this.symbolTicket.Solidity.UpToPrice < 1,
+      }"
+    ></div>
+    <span class="text-white">{{symbolTicket.Symbol}}</span>
+  </div>
+  <div class="flex justify-end w-[140px] h-full">
     <span class="text-white text-right text-sm">{{binanceOrdersCalculatingKit.RoundUp(symbolTicket.Solidity.Ratio, 1)}}</span>
-    <span class="text-white text-right text-sm w-[85px]">{{symbolTicket.Solidity.Price}}</span>
+    <span class="text-white text-right text-sm w-[80px]">{{symbolTicket.Solidity.Price}}</span>
   </div>
 </div>
