@@ -1,8 +1,8 @@
 <div
   class="w-full h-[25px] flex justify-between items-center border-[2px] hover:bg-gray-600 overflow-hidden transition-colors rounded-md"
   [ngClass]="{
-      'bg-blue-200': solidityInfo.Solidity.Ratio > 10,
-      'bg-blue-500': solidityInfo.Solidity.Ratio > 15,
+      'bg-blue-400': solidityInfo.Solidity.Ratio > 10,
+      'bg-blue-600': solidityInfo.Solidity.Ratio > 15,
       'bg-blue-800': solidityInfo.Solidity.Ratio > 20,
   }"
   (click)="ClickHandler()"
@@ -11,9 +11,9 @@
     <div
       class="h-full w-[6px]"
       [ngClass]="{
-        'bg-orange-200': solidityInfo.Solidity.UpToPrice >= 3,
-        'bg-orange-500': solidityInfo.Solidity.UpToPrice >= 1 && solidityInfo.Solidity.UpToPrice < 3,
-        'bg-orange-800': solidityInfo.Solidity.UpToPrice >= 0 && solidityInfo.Solidity.UpToPrice < 1,
+        'bg-green-200': solidityInfo.Solidity.UpToPrice >= 3,
+        'bg-green-500': solidityInfo.Solidity.UpToPrice >= 1 && solidityInfo.Solidity.UpToPrice < 3,
+        'bg-green-800': solidityInfo.Solidity.UpToPrice >= 0 && solidityInfo.Solidity.UpToPrice < 1,
       }"
     ></div>
     <span class="text-white text-[12px]">{{solidityInfo.Symbol}}</span>

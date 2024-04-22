@@ -1,6 +1,6 @@
 import {createReducer, on} from "@ngrx/store";
 import {FetchSymbolsListSuccessAction} from "./SymbolsList.actions";
-import {SolidityModel} from "../../models/SolidityFinderModels.model";
+import {SolidityModel} from "../../models/RestApi/SolidityFinderModels.model";
 
 export const symbolsListReducer = createReducer<SolidityModel[]>(
   [],

@@ -3,14 +3,14 @@ import {SymbolsChartComponent} from "../SymbolsChart/SymbolsChart.component";
 
 @Component({
   selector: 'app-symbols-charts',
-  templateUrl: 'symbols-charts.component.html',
+  templateUrl: 'SymbolsChartsContainer.component.html',
   imports: [
     SymbolsChartComponent
   ],
   standalone: true
 })
 
-export class SymbolsChartsComponent {
+export class SymbolsChartsContainerComponent {
   CanvasChartId1: string = "";
   CanvasChartId2: string = "";
   CanvasChartId3: string = "";

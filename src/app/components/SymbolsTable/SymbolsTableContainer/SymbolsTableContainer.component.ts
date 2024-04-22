@@ -1,5 +1,5 @@
 import {Component} from "@angular/core";
-import {SolidityModel} from "../../../models/SolidityFinderModels.model";
+import {SolidityModel} from "../../../models/RestApi/SolidityFinderModels.model";
 import {SymbolsTableItemComponent} from "../SymbolsTableItem/SymbolsTableItem.component";
 import {AsyncPipe, NgForOf} from "@angular/common";
 import {SymbolsListItemComponent} from "../../SymbolsList/SymbolsListItem/symbolsListItem.component";

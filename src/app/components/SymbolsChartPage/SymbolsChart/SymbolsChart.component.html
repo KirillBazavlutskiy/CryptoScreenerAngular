@@ -5,6 +5,7 @@
       [canvasId]="canvasId"
       [SolidityModel]="(SelectedSymbol$ | async) || null"
       [ChartTimeframe]="candleChartInterval"
+      [StreamLastCandle]="LastCandlestick"
       class="block w-full h-full"
     ></app-canvas-candlestick-chart>
 
