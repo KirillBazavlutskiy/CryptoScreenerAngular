@@ -7,6 +7,7 @@ import {AsyncPipe, NgClass} from "@angular/common";
 import {Store} from "@ngrx/store";
 import {StoreModel} from "../../../store/Store.model";
 import {selectedSymbolAction} from "../../../store/SelectedSymbol/SelectedSymbol.actions";
+import {getSolidityDistanceColor} from "../../../services/Styling/GetColorStyle";
 import {Observable} from "rxjs";
 
 @Component({
@@ -36,4 +37,6 @@ export class SymbolsListItemComponent {
     this.activeSymbol$ = this.store.select("selectedSymbol")
     this.binanceOrdersCalculatingKit = new BinanceOrdersCalculatingKit();
   }
+
+  protected readonly getSolidityDistanceColor = getSolidityDistanceColor;
 }

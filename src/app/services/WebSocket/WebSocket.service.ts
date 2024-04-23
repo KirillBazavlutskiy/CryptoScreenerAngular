@@ -1,4 +1,4 @@
-import {Inject, Injectable, Self} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import { Observable } from 'rxjs';
 import {webSocket, WebSocketSubject} from 'rxjs/webSocket';
 
@@ -6,7 +6,7 @@ import {webSocket, WebSocketSubject} from 'rxjs/webSocket';
   providedIn: 'root'
 })
 
-export class WebSocketKlinesService<T> {
+export class WebSocketService<T> {
   private socket$: WebSocketSubject<T> | null = null;
 
   constructor(@Inject('WS_URL') private baseUrl: string) {
