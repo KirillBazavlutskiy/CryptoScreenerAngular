@@ -7,7 +7,7 @@ import {CandleChartInterval, CandlestickBinanceData} from "../../../models/RestA
 import {HttpClient} from "@angular/common/http";
 import {CanvasCandleStickChartComponent} from "./CanvasCandleStickChart.component";
 import {AsyncPipe} from "@angular/common";
-import {WebSocketKlinesService} from "../../../services/WebSocket/WebSocketKlines.service";
+import {WebSocketService} from "../../../services/WebSocket/WebSocket.service";
 import {
   CandlestickWebSocketModel,
   WebSocketKlineModel,
@@ -23,7 +23,7 @@ import {
     AsyncPipe
   ],
   providers: [
-    WebSocketKlinesService,
+    WebSocketService,
     { provide: 'WS_URL', useValue: 'wss://fstream.binance.com/ws/' }
   ]
 })
@@ -42,7 +42,7 @@ export class SymbolsChartComponent implements OnInit {
   constructor(
     private store: Store<StoreModel>,
     private httpClient: HttpClient,
-    private webSocketKlinesService: WebSocketKlinesService<WebSocketKlinesMessage>
+    private webSocketKlinesService: WebSocketService<WebSocketKlinesMessage>
   ) {
     this.SelectedSymbol$ = store.select('selectedSymbol');
   }

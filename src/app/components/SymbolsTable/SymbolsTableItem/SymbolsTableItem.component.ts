@@ -7,6 +7,7 @@ import {NgClass} from "@angular/common";
 import {Store} from "@ngrx/store";
 import {StoreModel} from "../../../store/Store.model";
 import {selectedSymbolAction} from "../../../store/SelectedSymbol/SelectedSymbol.actions";
+import {getSolidityDistanceColor} from "../../../services/Styling/GetColorStyle";
 
 @Component({
   selector: 'app-symbols-table-item',
@@ -24,11 +25,13 @@ export class SymbolsTableItemComponent {
   ClickHandler: () => void;
 
   constructor(
-    private store: Store<StoreModel>
+    private store: Store<StoreModel>,
   ) {
     this.binanceOrdersCalculatingKit = new BinanceOrdersCalculatingKit();
     this.ClickHandler = () => {
-      this.store.dispatch(selectedSymbolAction({ solidityInfo: this.solidityInfo }))
-    }
+      this.store.dispatch(selectedSymbolAction({ solidityInfo: this.solidityInfo }));
+    };
   }
+
+  protected readonly getSolidityDistanceColor = getSolidityDistanceColor;
 }

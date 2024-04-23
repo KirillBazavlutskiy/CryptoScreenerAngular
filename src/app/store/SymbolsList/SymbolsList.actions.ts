@@ -8,3 +8,7 @@ export const FetchSymbolsListSuccessAction = createAction(
   props<{ symbolsList: SolidityModel[] }>()
 );
 
+export const ChangeSymbolPriceAction = createAction(
+  '[ SymbolsList ] Change Symbols List',
+  props<{ symbol: string, price: number }>()
+)

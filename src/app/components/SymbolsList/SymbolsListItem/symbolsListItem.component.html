@@ -11,15 +11,11 @@
   <div class="h-full flex items-center">
     <div
       class="inline aspect-square w-[16px] border-[2px] border-[#fff] rounded-full mr-[6px]"
-      [ngClass]="{
-        'bg-green-200': this.symbolTicket.Solidity.UpToPrice >= 3,
-        'bg-green-500': this.symbolTicket.Solidity.UpToPrice >= 1 && this.symbolTicket.Solidity.UpToPrice < 3,
-        'bg-green-800': this.symbolTicket.Solidity.UpToPrice >= 0 && this.symbolTicket.Solidity.UpToPrice < 1,
-      }"
+      [ngClass]="getSolidityDistanceColor(this.symbolTicket.Solidity.Type, this.symbolTicket.Solidity.UpToPrice)"
     ></div>
     <span class="text-white">{{symbolTicket.Symbol}}</span>
   </div>
-  <div class="flex justify-end w-[140px] h-full">
+  <div class="flex justify-end items-center w-[140px] h-full">
     <span class="text-white text-right text-sm">{{binanceOrdersCalculatingKit.RoundUp(symbolTicket.Solidity.Ratio, 1)}}</span>
     <span class="text-white text-right text-sm w-[80px]">{{symbolTicket.Solidity.Price}}</span>
   </div>

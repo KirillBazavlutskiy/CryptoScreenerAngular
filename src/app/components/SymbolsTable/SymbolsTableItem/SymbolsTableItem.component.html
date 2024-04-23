@@ -10,16 +10,12 @@
   <div class="flex h-full items-center gap-[5px]">
     <div
       class="h-full w-[6px]"
-      [ngClass]="{
-        'bg-green-200': solidityInfo.Solidity.UpToPrice >= 3,
-        'bg-green-500': solidityInfo.Solidity.UpToPrice >= 1 && solidityInfo.Solidity.UpToPrice < 3,
-        'bg-green-800': solidityInfo.Solidity.UpToPrice >= 0 && solidityInfo.Solidity.UpToPrice < 1,
-      }"
+      [ngClass]="getSolidityDistanceColor(solidityInfo.Solidity.Type, solidityInfo.Solidity.UpToPrice)"
     ></div>
     <span class="text-white text-[12px]">{{solidityInfo.Symbol}}</span>
   </div>
   <div class="flex h-full items-center gap-[5px] pr-[4px]">
-    <span class="text-white text-right w-[30px] text-sm">{{binanceOrdersCalculatingKit.RoundUp(solidityInfo.Solidity.Ratio, 1)}}</span>
-    <span class="text-white text-right w-[50px] text-sm">{{binanceOrdersCalculatingKit.RoundUp(solidityInfo.Solidity.Price, 2)}}</span>
+    <span class="text-white text-right w-[30px] text-sm">{{this.binanceOrdersCalculatingKit.RoundUp(this.solidityInfo.Solidity.Ratio, 1)}}</span>
+    <span class="text-white text-right w-[80px] text-sm">{{solidityInfo.Price}}</span>
   </div>
 </div>
