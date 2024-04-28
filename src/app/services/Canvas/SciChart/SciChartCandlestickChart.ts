@@ -165,6 +165,7 @@ export const CreateWatermark = (text: string) => {
 export const refillCandleStickChart = (
   CandlestickData: CandlestickBinanceData[],
   sciChartSurface: SciChartSurface,
+  xAxis: CategoryAxis,
   candlestickDataSeries: OhlcDataSeries,
   volumeDataSeries: XyDataSeries,
   solidityInfo: SolidityModel,

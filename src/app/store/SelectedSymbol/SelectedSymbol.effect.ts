@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {selectedSymbolAction} from "./SelectedSymbol.actions";
 import {map} from "rxjs";
-import {switchActivePageAction} from "../ActivePage/ActivePage.actions";
+import {switchActiveMainPageAction} from "../ActivePage/ActivePages.actions";
 
 @Injectable()
 export class SelectedSymbolEffect {
@@ -13,6 +13,6 @@ export class SelectedSymbolEffect {
   SelectSymbolEffect$ = createEffect(() =>
   this.actions$.pipe(
     ofType(selectedSymbolAction),
-    map(() => switchActivePageAction({ pageState: true }))
+    map(() => switchActiveMainPageAction({ pageState: true }))
   ))
 }

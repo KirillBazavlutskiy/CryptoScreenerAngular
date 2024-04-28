@@ -15,12 +15,13 @@ import {
 } from "./components/SymbolsChartPage/SymbolsChartsPageContainer/SymbolsChartsPageContainer.component";
 import {WebSocketService} from "./services/WebSocket/WebSocket.service";
 import {TickerData} from "./models/Websocket/BinanceStreamDayTicker";
+import {ActivePagesModel} from "./store/ActivePage/ActivePages.model";
+import {OptionsPageContainerComponent} from "./components/OptionsPage/OptionsPageContainer/OptionsPageContainer.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
   templateUrl: 'app.component.html',
-  styleUrl: 'app.component.scss',
   imports: [
     RouterOutlet,
     SymbolsListContainerComponent,
@@ -29,6 +30,7 @@ import {TickerData} from "./models/Websocket/BinanceStreamDayTicker";
     HeaderComponent,
     AsyncPipe,
     SymbolsChartsPageContainerComponent,
+    OptionsPageContainerComponent,
   ],
   providers: [
     WebSocketService,
@@ -38,16 +40,16 @@ import {TickerData} from "./models/Websocket/BinanceStreamDayTicker";
 
 export class AppComponent implements OnInit {
   title = "Hello world!";
-  SymbolsListActivePage$: Observable<boolean>;
+  SymbolsListActivePage$: Observable<ActivePagesModel>;
   constructor(
     private store: Store<StoreModel>,
     private websocket: WebSocketService<TickerData[]>
   ) {
-    this.SymbolsListActivePage$ = store.select('symbolsListPageActive');
+    this.SymbolsListActivePage$ = store.select('activePages');
   }
 
   ngOnInit() {
-    this.store.dispatch(FetchSymbolsListAction());
+    this.store.dispatch(FetchSymbolsListAction({}));
     this.websocket.setNewUrl("!ticker@arr");
     this.websocket.receiveMessage().subscribe((message) => {
       message.forEach(updateTicker => {

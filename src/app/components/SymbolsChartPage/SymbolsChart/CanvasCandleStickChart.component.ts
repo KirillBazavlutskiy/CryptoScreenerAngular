@@ -62,6 +62,7 @@ export class CanvasCandleStickChartComponent implements OnDestroy, OnChanges, Af
         refillCandleStickChart(
           this.CandlestickData,
           this.sciChartSurface,
+          this.xAxis,
           this.candlestickSeries,
           this.volumeSeries,
           this.SolidityModel,
