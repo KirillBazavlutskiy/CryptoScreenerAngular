@@ -1,6 +1,9 @@
 <div class="w-screen h-screen pt-[40px] overflow-hidden bg-gray-800">
+  <app-options-page
+    class="absolute top-0 left-0 w-screen h-screen"
+  ></app-options-page>
   <app-header></app-header>
-  <div class="w-[200%] h-full flex flex-row translate transition-transform" [ngClass]="{'translate-x-[-50%]': (SymbolsListActivePage$ | async)}">
+  <div class="w-[200%] h-full flex flex-row relative translate transition-transform duration-[.1s]" [ngClass]="{'translate-x-[-50%]': (SymbolsListActivePage$ | async)?.mainPage}">
     <app-symbols-table-container class="w-screen h-full p-[10px]" ></app-symbols-table-container>
     <app-symbols-charts-page-container class="w-screen h-full p-[10px]" />
   </div>

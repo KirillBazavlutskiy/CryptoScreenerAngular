@@ -1,10 +1,14 @@
 <div
-  class="w-full h-full overflow-y-scroll rounded-lg py-[10px] px-[20px] gap-y-[5px] gap-x-[6px] grid  bg-gray-900 no-scrollbar
-  grid-cols-1 usm:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7"
+  class="w-full h-full overflow-y-scroll rounded-lg py-[14px] px-[20px] bg-gray-900 no-scrollbar"
 >
-  @for (solidityModel of symbolsList$ | async; track solidityModel.QuoteVolume) {
-    <app-symbols-table-item
-      [solidityInfo]="solidityModel"
-    ></app-symbols-table-item>
-  }
+  <div class="
+    w-full grid align-top gap-y-[5px] gap-x-[6px]
+    grid-cols-1 usm:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7
+  ">
+    @for (solidityModel of symbolsList$ | async; track solidityModel.QuoteVolume) {
+      <app-symbols-table-item
+        [solidityInfo]="solidityModel"
+      ></app-symbols-table-item>
+    }
+  </div>
 </div>

@@ -1,0 +1,36 @@
+<div class="relative w-full h-full">
+  <div
+    class="absolute z-30 translate transition-transform w-full h-full px-0 usm:px-[20px] flex justify-center items-center"
+    [ngClass]="{
+      'translate-y-[-100%]': !(activePages$ | async)?.optionsPage
+    }"
+  >
+    <div
+      class="w-full max-w-[900px] h-full usm:h-auto bg-gray-900 p-[10px] rounded-lg flex flex-col justify-start items-end"
+    >
+      <img
+        ngSrc="../../../../assets/svg/xMark.svg"
+        alt="X"
+        width="30"
+        height="30"
+        class="mb-[10px] transition-transform hover:scale-125"
+        (click)="closeWindowClickHandler()"
+      />
+      <app-options-solidity-finder-chapter class="w-full h-full"></app-options-solidity-finder-chapter>
+    </div>
+  </div>
+  <div
+    class="pointer-events-none absolute z-10 transition-colors w-full h-full"
+    [ngClass]="{
+      'bg-black/50': (activePages$ | async)?.optionsPage,
+      'bg-transparent': !(activePages$ | async)?.optionsPage
+    }"
+  ></div>
+  <div
+    class="w-full h-full absolute z-20"
+    [ngClass]="{
+      'block': (activePages$ | async)?.optionsPage,
+      'hidden': !(activePages$ | async)?.optionsPage
+    }"
+  ></div>
+</div>

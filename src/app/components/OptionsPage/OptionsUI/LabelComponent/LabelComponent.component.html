@@ -1,0 +1,9 @@
+<div class="w-full flex justify-between mb-[10px] flex-col usm:flex-row">
+  <p class="text-white text-lg font-semibold">{{labelText}}</p>
+  <input
+    type="text"
+    [value]="value"
+    (input)="this.onInputChange($event)"
+    class="bg-transparent w-full usm:w-auto text-white border-[2px] rounded-md border-white px-[6px] py-[2px] text-md focus:bg-gray-100/10 transition-colors"
+  />
+</div>

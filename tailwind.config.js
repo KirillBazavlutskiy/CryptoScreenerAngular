@@ -7,6 +7,9 @@ module.exports = {
     extend: {
       screens: {
         usm: "400px"
+      },
+      fontSize: {
+        usm: "10px"
       }
     },
   },

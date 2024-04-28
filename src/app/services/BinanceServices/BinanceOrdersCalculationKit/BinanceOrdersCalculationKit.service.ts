@@ -14,7 +14,7 @@ export class BinanceOrdersCalculatingKit {
     }
 
     if (fractionDigits !== 0) ratio = this.RoundUp(ratio, fractionDigits);
-    return ratio;
+    return ratio * 100;
   }
 
   CalcRealRatio = (UpToPrice: number, LimitType: LimitType): number => {

@@ -1,0 +1,26 @@
+<div class="w-full h-full flex flex-col items-center justify-between">
+  <div class="w-full flex flex-col items-center">
+    <app-options-label
+      class="w-full"
+      labelText="Min Volume"
+      [value]="SolidityFinderOptions.SolidityFinderMinVolume"
+      [updateFunc]="ChangeMinVolumeValue"
+    ></app-options-label>
+    <app-options-label
+      class="w-full"
+      labelText="Ratio Access"
+      [value]="SolidityFinderOptions.SolidityFinderRatioAccess"
+      [updateFunc]="ChangeRatioAccessValue"
+    ></app-options-label>
+    <app-options-label
+      class="w-full"
+      labelText="Up To Price"
+      [value]="SolidityFinderOptions.SolidityFinderUpToPriceAccess"
+      [updateFunc]="ChangeUpToPriceAccessValue"
+    ></app-options-label>
+  </div>
+  <button
+    class="text-white transition-colors bg-blue-600 hover:bg-blue-700 rounded-lg w-[150px] py-[8px]"
+    (click)="HandleClickApplyButton()"
+  >Apply</button>
+</div>

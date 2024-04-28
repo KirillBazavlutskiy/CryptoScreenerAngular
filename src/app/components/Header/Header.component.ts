@@ -1,23 +1,34 @@
 import {Component} from "@angular/core";
 import {Store} from "@ngrx/store";
 import {StoreModel} from "../../store/Store.model";
-import {switchActivePageAction} from "../../store/ActivePage/ActivePage.actions";
+import {switchActiveMainPageAction, switchOptionsPageAction} from "../../store/ActivePage/ActivePages.actions";
+import {Observable} from "rxjs";
+import {ActivePagesModel} from "../../store/ActivePage/ActivePages.model";
+import {AsyncPipe, NgClass} from "@angular/common";
 
 @Component({
   selector: 'app-header',
   standalone: true,
+  imports: [
+    NgClass,
+    AsyncPipe
+  ],
   templateUrl: 'Header.component.html'
 })
 
 export class HeaderComponent {
-  ButtonClickHandler: () => void;
+  ButtonClickMainPageSwitchHandler: () => void;
+  ButtonClickOptionsPageSwitchHandler: () => void;
+  activePages: Observable<ActivePagesModel>
   constructor(
     private store: Store<StoreModel>
   ) {
-    this.ButtonClickHandler = () => {
-      this.store.dispatch(switchActivePageAction({}))
+    this.ButtonClickMainPageSwitchHandler = () => {
+      this.store.dispatch(switchActiveMainPageAction({ pageState: false }))
     }
+    this.ButtonClickOptionsPageSwitchHandler = () => {
+      this.store.dispatch(switchOptionsPageAction({}))
+    }
+    this.activePages = store.select('activePages');
   }
-
-  protected readonly SwitchActivePageAction = switchActivePageAction;
 }
