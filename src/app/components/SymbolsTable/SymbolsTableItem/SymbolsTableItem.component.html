@@ -15,7 +15,8 @@
     <span class="text-white text-usm">{{solidityInfo.Symbol}}</span>
   </div>
   <div class="flex h-full items-center gap-[5px] pr-[4px]">
-    <span class="text-white text-right text-usm w-[30px]">{{this.binanceOrdersCalculatingKit.RoundUp(this.solidityInfo.Solidity.Ratio, 1)}}</span>
+    <span class="text-white text-right text-usm w-[20px]">{{this.binanceOrdersCalculatingKit.RoundUp(this.solidityInfo.Solidity.Ratio, 1)}}</span>
+    <span class="text-white text-right text-usm w-[20px]">{{this.binanceOrdersCalculatingKit.RoundUp(this.solidityInfo.Solidity.UpToPrice, 1)}}</span>
     <span class="text-white text-right text-usm w-[50px]">{{solidityInfo.Price}}</span>
   </div>
 </div>

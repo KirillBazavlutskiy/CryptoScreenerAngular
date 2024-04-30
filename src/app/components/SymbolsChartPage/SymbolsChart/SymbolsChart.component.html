@@ -3,11 +3,41 @@
     <app-canvas-candlestick-chart
       [CandlestickData]="CandlestickData"
       [canvasId]="canvasId"
-      [SolidityModel]="(SelectedSymbol$ | async) || null"
+      [SolidityModel]="(selectedSymbol$ | async) || null"
       [ChartTimeframe]="candleChartInterval"
       [StreamLastCandle]="LastCandlestick"
       class="block w-full h-full"
     ></app-canvas-candlestick-chart>
+
+    @if ((selectedSymbol$ | async) !== null) {
+      <div class="absolute top-[15px] left-[15px] flex flex-col gap-[5px]">
+        <div class="flex items-center justify-center px-[8px] h-[24px] rounded-lg bg-blue-900">
+          <p class="text-white font-semibold text-sm">
+            {{(selectedSymbol$ | async)?.Symbol}}
+          </p>
+        </div>
+
+        <div class="rounded-lg bg-blue-900 transition-all h-[28px] w-[50px] hover:w-[260px] hover:h-[104px] gap-[10px] overflow-hidden py-[2px]">
+          <div class="w-[270px] h-[100px] flex items-start justify-start">
+            <div class="w-[50px] h-[24px] flex items-center justify-center">
+              <p class="text-white font-semibold text-sm">
+                {{candleChartInterval.toUpperCase()}}
+              </p>
+            </div>
+            <div class="grid grid-cols-4 w-[200px] h-[100px] gap-x-[20px]">
+              @for (chartInterval of otherChartIntervals; track chartInterval) {
+                <button
+                  class="w-[40px] h-[24px] flex items-center justify-center transition-colors bg-transparent hover:bg-gray-100/30 rounded-lg"
+                  (click)="ChangeTimeframe(chartInterval)"
+                >
+                  <p class="text-white font-semibold text-sm">{{chartInterval.toUpperCase()}}</p>
+                </button>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    }
 
     @if (isLoading) {
       <div class="w-full h-full flex items-center justify-center absolute top-0 left-0 bg-gray-900">
