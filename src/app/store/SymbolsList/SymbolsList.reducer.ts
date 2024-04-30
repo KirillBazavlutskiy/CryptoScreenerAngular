@@ -1,5 +1,5 @@
 import {createReducer, on} from "@ngrx/store";
-import {ChangeSymbolPriceAction, FetchSymbolsListSuccessAction} from "./SymbolsList.actions";
+import {ChangeSymbolPriceAction, DeleteSymbolAction, FetchSymbolsListSuccessAction} from "./SymbolsList.actions";
 import {SolidityModel} from "../../models/RestApi/SolidityFinderModels.model";
 import {
   BinanceOrdersCalculatingKit
@@ -22,5 +22,9 @@ export const symbolsListReducer = createReducer<SolidityModel[]>(
         return solidityModel;
       }
     });
+  }),
+  on(DeleteSymbolAction, (state, { symbol }) => {
+    const newSymbolsList: SolidityModel[] = JSON.parse(JSON.stringify(state));
+    return newSymbolsList.filter((ticket) => ticket.Symbol !== symbol)
   })
 )

@@ -145,23 +145,6 @@ export async function initEmptyCandlestickChart(chartId: string) {
   };
 }
 
-export const CreateWatermark = (text: string) => {
-  return new TextAnnotation({
-    x1: 0.5,
-    y1: 0.5,
-    xCoordinateMode: ECoordinateMode.Relative,
-    yCoordinateMode: ECoordinateMode.Relative,
-    horizontalAnchorPoint: EHorizontalAnchorPoint.Center,
-    verticalAnchorPoint: EVerticalAnchorPoint.Center,
-    annotationLayer: EAnnotationLayer.BelowChart,
-    text: text,
-    fontSize: 32,
-    fontWeight: 'Bold',
-    textColor: "#888888",
-    opacity: 0.5,
-  });
-}
-
 export const refillCandleStickChart = (
   CandlestickData: CandlestickBinanceData[],
   sciChartSurface: SciChartSurface,
@@ -202,7 +185,6 @@ export const refillCandleStickChart = (
   });
 
   sciChartSurface.annotations.add(horizontalLineAnnotation);
-  sciChartSurface.annotations.add(CreateWatermark(`${solidityInfo.Symbol} | ${chartTimeframe.toUpperCase()}`))
 
   sciChartSurface.zoomExtents();
 }

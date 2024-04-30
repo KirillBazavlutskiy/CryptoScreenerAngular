@@ -1,6 +1,10 @@
 import {LimitType} from "../../models/RestApi/SolidityFinderModels.model";
 
 export function getSolidityDistanceColor(limitType: LimitType, upToPrice: number  ) {
+  if (upToPrice < 0) {
+    return "bg-white"
+  }
+
   if (limitType === 'asks') {
     if (upToPrice >= 3) {
       return 'bg-green-400';

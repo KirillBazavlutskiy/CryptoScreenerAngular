@@ -83,6 +83,6 @@ export class CanvasCandleStickChartComponent implements OnDestroy, OnChanges, Af
       }
     }
 
-    this.symbolChanged = !!changes["SolidityModel"];
+    this.symbolChanged = !!changes["SolidityModel"] || !!changes["ChartTimeframe"];
   }
 }

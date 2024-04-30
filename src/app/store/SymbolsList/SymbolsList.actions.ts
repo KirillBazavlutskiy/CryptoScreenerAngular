@@ -16,3 +16,8 @@ export const ChangeSymbolPriceAction = createAction(
   '[ SymbolsList ] Change Symbols List',
   props<{ symbol: string, price: number }>()
 )
+
+export const DeleteSymbolAction = createAction(
+  '[ SymbolsList ] Delete Symbol',
+  props<{ symbol: string }>()
+)
