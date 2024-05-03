@@ -29,11 +29,12 @@ export class SymbolsListLoadEffect {
 
             if (solidityFinderOptions) {
               const filteredData = sortedData.filter(solidityModel => {
-                const minVolumeAccess = solidityFinderOptions.SolidityFinderMinVolume <= solidityModel.QuoteVolume;
-                const ratioAccess = solidityFinderOptions.SolidityFinderRatioAccess <= solidityModel.Solidity.Ratio;
-                const upToPriceAccess = solidityFinderOptions.SolidityFinderUpToPriceAccess >= solidityModel.Solidity.UpToPrice;
+                const minVolumeAccess = solidityFinderOptions.MinVolume * 100000 <= solidityModel.QuoteVolume;
+                const ratioAccess = solidityFinderOptions.RatioAccess <= solidityModel.Solidity.Ratio;
+                const upToPriceAccess = solidityFinderOptions.UpToPriceAccess >= solidityModel.Solidity.UpToPrice;
+                const nonConcernPeriodAccess = solidityFinderOptions.NonConcernPeriodAccess <= solidityModel.Solidity.NonConcernPeriod;
 
-                return minVolumeAccess && ratioAccess && upToPriceAccess;
+                return minVolumeAccess && ratioAccess && upToPriceAccess && nonConcernPeriodAccess;
               })
               return FetchSymbolsListSuccessAction({ symbolsList: filteredData })
             } else {

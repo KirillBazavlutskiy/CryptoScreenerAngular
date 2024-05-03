@@ -1,26 +1,9 @@
-import {LimitType} from "../../models/RestApi/SolidityFinderApi/GetSolidity.model";
+import {PaintingLevel} from "../../models/Options/StylingOptions.model";
 
-export function getSolidityDistanceColor(limitType: LimitType, upToPrice: number  ) {
-  if (upToPrice < 0) {
-    return "bg-white"
-  }
-
-  if (limitType === 'asks') {
-    if (upToPrice >= 3) {
-      return 'bg-green-400';
-    } else if (upToPrice >= 1 && upToPrice < 3) {
-      return 'bg-green-600';
-    } else if (upToPrice >= 0 && upToPrice < 1) {
-      return 'bg-green-800';
-    }
-  } else {
-    if (upToPrice >= 3) {
-      return 'bg-red-400';
-    } else if (upToPrice >= 1 && upToPrice < 3) {
-      return 'bg-red-600';
-    } else if (upToPrice >= 0 && upToPrice < 1) {
-      return 'bg-red-800';
-    }
-  }
-  return '';
+export function getLevelColor(value: number, colorLevels: PaintingLevel[]) {
+  let resultColor: string = "";
+  colorLevels.forEach(colorLevel => {
+    if (colorLevel.value < value) resultColor = colorLevel.color
+  })
+  return resultColor
 }

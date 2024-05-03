@@ -2,21 +2,27 @@
   <div class="w-full flex flex-col items-center">
     <app-options-label
       class="w-full"
-      labelText="Min Volume"
-      [value]="SolidityFinderOptions.SolidityFinderMinVolume"
+      labelText="Min Volume (value * 100k)"
+      [value]="SolidityFinderOptions.MinVolume"
       [updateFunc]="ChangeMinVolumeValue"
     ></app-options-label>
     <app-options-label
       class="w-full"
       labelText="Ratio Access"
-      [value]="SolidityFinderOptions.SolidityFinderRatioAccess"
+      [value]="SolidityFinderOptions.RatioAccess"
       [updateFunc]="ChangeRatioAccessValue"
     ></app-options-label>
     <app-options-label
       class="w-full"
       labelText="Up To Price"
-      [value]="SolidityFinderOptions.SolidityFinderUpToPriceAccess"
+      [value]="SolidityFinderOptions.UpToPriceAccess"
       [updateFunc]="ChangeUpToPriceAccessValue"
+    ></app-options-label>
+    <app-options-label
+      class="w-full"
+      labelText="Non-Concern Period (value * 15m)"
+      [value]="SolidityFinderOptions.NonConcernPeriodAccess"
+      [updateFunc]="ChangeNonConcernPeriodAccessValue"
     ></app-options-label>
   </div>
   <button

@@ -1,5 +1,6 @@
 export interface SolidityFinderOptionsModel {
-  SolidityFinderRatioAccess: number;
-  SolidityFinderUpToPriceAccess: number;
-  SolidityFinderMinVolume: number
+  RatioAccess: number;
+  UpToPriceAccess: number;
+  MinVolume: number;
+  NonConcernPeriodAccess: number;
 }
