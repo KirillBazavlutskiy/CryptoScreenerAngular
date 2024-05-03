@@ -1,14 +1,14 @@
 import {AfterViewInit, Component, Input, OnChanges, OnDestroy, SimpleChanges} from '@angular/core';
-import {CategoryAxis, NumericAxis, OhlcDataSeries, SciChartSurface, XyDataSeries} from 'scichart';
-import {CandleChartInterval, CandlestickBinanceData} from "../../../models/RestApi/CandlestickData.model";
+import {CategoryAxis, NumericAxis, NumericLabelProvider, OhlcDataSeries, SciChartSurface, XyDataSeries} from 'scichart';
 import {TSciChart} from "scichart/types/TSciChart";
-import {SolidityModel} from "../../../models/RestApi/SolidityFinderModels.model";
+import {SolidityModel} from "../../../models/RestApi/SolidityFinderApi/GetSolidity.model";
 import {
   cleanupSciChart,
   initEmptyCandlestickChart,
   refillCandleStickChart, updateCandlestickChart
 } from "../../../services/Canvas/SciChart/SciChartCandlestickChart";
-import {WebSocketKlineModel} from "../../../models/Websocket/BinanceStreamKlines";
+import {WebSocketKlineModel} from "../../../models/Websocket/Binance/StreamKlines";
+import {CandleChartInterval, CandlestickBinanceData} from "../../../models/RestApi/Binance/Klines.model";
 
 
 
@@ -20,10 +20,11 @@ import {WebSocketKlineModel} from "../../../models/Websocket/BinanceStreamKlines
 
 export class CanvasCandleStickChartComponent implements OnDestroy, OnChanges, AfterViewInit {
   @Input() canvasId!: string;
-  @Input() CandlestickData!: CandlestickBinanceData[];
-  @Input() SolidityModel!: SolidityModel | null;
-  @Input() ChartTimeframe!: CandleChartInterval;
-  @Input() StreamLastCandle!: WebSocketKlineModel | null;
+  @Input() candlestickData!: CandlestickBinanceData[];
+  @Input() solidityModel!: SolidityModel | null;
+  @Input() chartTimeframe!: CandleChartInterval;
+  @Input() streamLastCandle!: WebSocketKlineModel | null;
+  @Input() tickSize!: number | null;
 
   symbolChanged: boolean = false;
 
@@ -57,32 +58,35 @@ export class CanvasCandleStickChartComponent implements OnDestroy, OnChanges, Af
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (this.symbolChanged) {
-      if (this.sciChartSurface && this.CandlestickData.length !== 0 && this.SolidityModel && this.ChartTimeframe) {
+    if (this.symbolChanged && this.tickSize) {
+      if (
+        this.sciChartSurface &&
+        this.candlestickData.length !== 0 &&
+        this.solidityModel &&
+        this.chartTimeframe
+      ) {
         refillCandleStickChart(
-          this.CandlestickData,
+          this.candlestickData,
           this.sciChartSurface,
-          this.xAxis,
           this.candlestickSeries,
           this.volumeSeries,
-          this.SolidityModel,
-          this.ChartTimeframe
+          this.solidityModel,
+          this.yAxis,
+          this.tickSize
         )
       }
     }
 
-    if (changes["StreamLastCandle"]) {
-      if (this.StreamLastCandle) {
-        updateCandlestickChart(
-          this.sciChartSurface,
-          this.StreamLastCandle,
-          this.candlestickSeries,
-          this.volumeSeries,
-          this.yAxis
-        )
-      }
+    if (changes["streamLastCandle"] && this.streamLastCandle) {
+      updateCandlestickChart(
+        this.sciChartSurface,
+        this.streamLastCandle,
+        this.candlestickSeries,
+        this.volumeSeries,
+        this.yAxis
+      )
     }
 
-    this.symbolChanged = !!changes["SolidityModel"] || !!changes["ChartTimeframe"];
+    this.symbolChanged = !!(changes["solidityModel"] || changes["chartTimeframe"]);
   }
 }

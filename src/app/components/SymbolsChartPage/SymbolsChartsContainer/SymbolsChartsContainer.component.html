@@ -1,17 +1,23 @@
 <div class="w-full h-full flex gap-[5px]">
   <app-symbols-chart
     [canvasId]="CanvasChartId1"
+    [selectedSymbol]="selectedSymbol"
+    [exchangeInfoSymbol]="exchangeInfoSymbol"
     candleChartInterval="5m"
     class="w-full md:w-1/2 rounded-lg overflow-hidden"
   ></app-symbols-chart>
   <div class="hidden md:flex w-1/2 h-full flex-col gap-[5px]">
     <app-symbols-chart
       [canvasId]="CanvasChartId2"
+      [selectedSymbol]="selectedSymbol"
+      [exchangeInfoSymbol]="exchangeInfoSymbol"
       class="w-full h-1/2 rounded-lg overflow-hidden"
       candleChartInterval="30m"
     ></app-symbols-chart>
     <app-symbols-chart
       [canvasId]="CanvasChartId3"
+      [selectedSymbol]="selectedSymbol"
+      [exchangeInfoSymbol]="exchangeInfoSymbol"
       class="w-full h-1/2 rounded-lg overflow-hidden"
       candleChartInterval="1d"
     ></app-symbols-chart>

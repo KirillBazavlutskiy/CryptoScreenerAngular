@@ -14,7 +14,7 @@ import {
   SymbolsChartsPageContainerComponent
 } from "./components/SymbolsChartPage/SymbolsChartsPageContainer/SymbolsChartsPageContainer.component";
 import {WebSocketService} from "./services/WebSocket/WebSocket.service";
-import {TickerData} from "./models/Websocket/BinanceStreamDayTicker";
+import {TickerData} from "./models/Websocket/Binance/StreamDayTicker";
 import {ActivePagesModel} from "./store/ActivePage/ActivePages.model";
 import {OptionsPageContainerComponent} from "./components/OptionsPage/OptionsPageContainer/OptionsPageContainer.component";
 

@@ -6,17 +6,20 @@
     }"
   >
     <div
-      class="w-full max-w-[900px] h-full usm:h-auto bg-gray-900 p-[10px] rounded-lg flex flex-col justify-start items-end"
+      class="w-full max-w-[900px] h-full usm:h-auto bg-gray-900 rounded-lg flex flex-col justify-start"
     >
-      <img
-        ngSrc="../../../../assets/svg/xMark.svg"
-        alt="X"
-        width="30"
-        height="30"
-        class="mb-[10px] transition-transform hover:scale-125"
-        (click)="closeWindowClickHandler()"
-      />
-      <app-options-solidity-finder-chapter class="w-full h-full"></app-options-solidity-finder-chapter>
+      <div class="w-full h-[40px] flex justify-between items-center px-[10px]">
+        <h2 class="text-white font-semibold text-xl">Options</h2>
+        <img
+          ngSrc="../../../../assets/svg/xMark.svg"
+          alt="X"
+          width="30"
+          height="30"
+          class="transition-transform hover:scale-125"
+          (click)="closeWindowClickHandler()"
+        />
+      </div>
+      <app-options-solidity-finder-chapter class="w-full h-full px-[10px]"></app-options-solidity-finder-chapter>
     </div>
   </div>
   <div

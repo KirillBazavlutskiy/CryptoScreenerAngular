@@ -1,4 +1,4 @@
-import {LimitType} from "../../models/RestApi/SolidityFinderModels.model";
+import {LimitType} from "../../models/RestApi/SolidityFinderApi/GetSolidity.model";
 
 export function getSolidityDistanceColor(limitType: LimitType, upToPrice: number  ) {
   if (upToPrice < 0) {

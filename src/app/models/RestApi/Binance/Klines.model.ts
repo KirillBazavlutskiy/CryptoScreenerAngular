@@ -1,8 +1,3 @@
-export interface VolumeBarDataCanvasModel {
-  xValues: number[] | undefined,
-  yValues: number[] | undefined,
-}
-
 export type CandlestickBinanceData = [
   number,   // Open time
   string,   // Open
@@ -17,7 +12,6 @@ export type CandlestickBinanceData = [
   string,   // Taker buy base asset volume
   string    // Ignore.
 ]
-
 export type CandleChartInterval =
   | '1m'
   | '3m'
@@ -34,8 +28,7 @@ export type CandleChartInterval =
   | '3d'
   | '1w'
   | '1M'
-
-export const candleIntervals: CandleChartInterval[] = [
+export const klinesModel: CandleChartInterval[] = [
   '1m',
   '3m',
   '5m',

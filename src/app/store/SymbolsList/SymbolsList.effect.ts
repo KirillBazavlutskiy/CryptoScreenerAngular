@@ -3,7 +3,7 @@ import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {FetchSymbolsListAction, FetchSymbolsListSuccessAction} from "./SymbolsList.actions";
 import {catchError, EMPTY, map, mergeMap} from "rxjs";
 import {HttpClient} from "@angular/common/http";
-import {SolidityModel} from "../../models/RestApi/SolidityFinderModels.model";
+import {SolidityModel} from "../../models/RestApi/SolidityFinderApi/GetSolidity.model";
 
 @Injectable()
 export class SymbolsListLoadEffect {
