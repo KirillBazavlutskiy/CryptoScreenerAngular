@@ -1,17 +1,18 @@
 <div
-  class="w-full h-[25px] border border-transparent hover:bg-blue-500/50 duration-[.0-4s] flex justify-between items-center px-[10px]"
-  [ngClass]="{
-    'bg-gray-600': (activeSymbol$ | async)?.Symbol === this.symbolTicket.Symbol,
-    'bg-blue-400': this.symbolTicket.Solidity.Ratio > 10,
-    'bg-blue-600': this.symbolTicket.Solidity.Ratio > 15,
-    'bg-blue-800': this.symbolTicket.Solidity.Ratio > 20,
+  class="w-full h-[25px] border border-transparent hover:bg-blue-500/50 duration-[.04s] flex justify-between items-center px-[10px]"
+  [ngStyle]="{
+    'backgroundColor': (activeSymbol$ | async)?.Symbol === this.symbolTicket.Symbol ?
+      '#4b5563' :
+      getSolidityRatioColor(symbolTicket.Solidity.Ratio)
   }"
   (click)="ClickHandler()"
 >
   <div class="h-full flex items-center">
     <div
       class="inline aspect-square w-[16px] border-[2px] border-[#fff] rounded-full mr-[6px]"
-      [ngClass]="getSolidityDistanceColor(this.symbolTicket.Solidity.Type, this.symbolTicket.Solidity.UpToPrice)"
+      [ngStyle]="{
+        'backgroundColor': getSolidityDistanceColor(symbolTicket.Solidity.UpToPrice)
+      }"
     ></div>
     <span class="text-white">{{symbolTicket.Symbol}}</span>
   </div>

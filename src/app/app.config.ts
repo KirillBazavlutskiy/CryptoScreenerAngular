@@ -11,6 +11,7 @@ import {activePagesReducer} from "./store/ActivePage/ActivePages.reducer";
 import {provideHttpClient, withFetch} from "@angular/common/http";
 import {selectedSymbolReducer} from "./store/SelectedSymbol/SelectedSymbol.reducer";
 import {SelectedSymbolEffect} from "./store/SelectedSymbol/SelectedSymbol.effect";
+import {stylingOptionsReducer} from "./store/StylingOptions/StylingOptions.reducer";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,7 +20,8 @@ export const appConfig: ApplicationConfig = {
     provideStore<StoreModel>({
       symbolsList: symbolsListReducer,
       activePages: activePagesReducer,
-      selectedSymbol: selectedSymbolReducer
+      selectedSymbol: selectedSymbolReducer,
+      stylingOptions: stylingOptionsReducer
     }),
     provideEffects([
       SymbolsListLoadEffect,

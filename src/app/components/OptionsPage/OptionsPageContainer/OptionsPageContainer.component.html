@@ -6,9 +6,9 @@
     }"
   >
     <div
-      class="w-full max-w-[900px] h-full usm:h-auto bg-gray-900 rounded-lg flex flex-col justify-start"
+      class="w-full max-w-[900px] h-full usm:h-[400px] bg-gray-900 rounded-lg flex flex-col justify-start"
     >
-      <div class="w-full h-[40px] flex justify-between items-center px-[10px]">
+      <div class="w-full h-[50px] flex justify-between items-center px-[10px]">
         <h2 class="text-white font-semibold text-xl">Options</h2>
         <img
           ngSrc="../../../../assets/svg/xMark.svg"
@@ -19,7 +19,31 @@
           (click)="closeWindowClickHandler()"
         />
       </div>
-      <app-options-solidity-finder-chapter class="w-full h-full px-[10px]"></app-options-solidity-finder-chapter>
+      <div class="w-full h-[calc(100%_-_50px)] flex justify-start px-[10px] gap-[10px] pb-[10px]">
+        <div class="w-[200px] h-fit max-h-full flex flex-col rounded-lg overflow-y-scroll no-scrollbar">
+          <div
+            class="w-full min-h-[40px] flex justify-center items-center transition-colors bg-gray-800 hover:bg-blue-600 px-[10px]"
+            (click)="switchActiveOptionsChapterHandler('SolidityFinderChapter')"
+          >
+            <button class="text-sm bg-transparent text-white">Solidity Finder Options</button>
+          </div>
+          <div
+            class="w-full min-h-[40px] flex justify-center items-center transition-colors bg-gray-800 hover:bg-blue-600 px-[10px]"
+            (click)="switchActiveOptionsChapterHandler('ChartOptionsChapter')"
+          >
+            <button class="text-sm bg-transparent text-white">Chart Options</button>
+          </div>
+        </div>
+        <div class="w-[calc(100%_-_210px)] h-full overflow-y-scroll no-scrollbar">
+          <app-options-solidity-finder-chapter
+            class="max-w-full w-full h-full"
+            [ngClass]="{
+            'block': activeOptionChapter == 'SolidityFinderChapter',
+            'hidden': activeOptionChapter == 'ChartOptionsChapter'
+          }"
+          ></app-options-solidity-finder-chapter>
+        </div>
+      </div>
     </div>
   </div>
   <div

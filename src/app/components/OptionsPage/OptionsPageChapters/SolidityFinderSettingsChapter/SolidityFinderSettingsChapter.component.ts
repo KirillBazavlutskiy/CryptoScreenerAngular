@@ -22,18 +22,20 @@ export class SolidityFinderSettingsChapterComponent {
   }
 
   SolidityFinderOptions: SolidityFinderOptionsModel  = {
-    SolidityFinderMinVolume: 1000000,
-    SolidityFinderRatioAccess: 20,
-    SolidityFinderUpToPriceAccess: 5,
+    MinVolume: 10,
+    RatioAccess: 15,
+    UpToPriceAccess: 5,
+    NonConcernPeriodAccess: 4
   }
 
   ChangeSolidityFinderOptionsValue(key: keyof SolidityFinderOptionsModel, value: number) {
     this.SolidityFinderOptions[key] = value;
   }
 
-  ChangeMinVolumeValue = (value: number) => this.ChangeSolidityFinderOptionsValue("SolidityFinderMinVolume", value);
-  ChangeRatioAccessValue = (value: number) => this.ChangeSolidityFinderOptionsValue("SolidityFinderRatioAccess", value);
-  ChangeUpToPriceAccessValue = (value: number) => this.ChangeSolidityFinderOptionsValue("SolidityFinderUpToPriceAccess", value);
+  ChangeMinVolumeValue = (value: number) => this.ChangeSolidityFinderOptionsValue("MinVolume", value);
+  ChangeRatioAccessValue = (value: number) => this.ChangeSolidityFinderOptionsValue("RatioAccess", value);
+  ChangeUpToPriceAccessValue = (value: number) => this.ChangeSolidityFinderOptionsValue("UpToPriceAccess", value);
+  ChangeNonConcernPeriodAccessValue = (value: number) => this.ChangeSolidityFinderOptionsValue("NonConcernPeriodAccess", value);
 
   HandleClickApplyButton = () => {
     this.store.dispatch(FetchSymbolsListAction({ solidityFinderOptions: JSON.parse(JSON.stringify(this.SolidityFinderOptions)) }))
