@@ -1,4 +1,4 @@
-import {LimitType} from "../../../models/RestApi/SolidityFinderModels.model";
+import {LimitType} from "../../../models/RestApi/SolidityFinderApi/GetSolidity.model";
 import {Injectable} from "@angular/core";
 
 @Injectable({

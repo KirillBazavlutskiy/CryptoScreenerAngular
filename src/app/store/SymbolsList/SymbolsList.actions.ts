@@ -1,5 +1,5 @@
 import {createAction, props} from "@ngrx/store";
-import {SolidityModel} from "../../models/RestApi/SolidityFinderModels.model";
+import {SolidityModel} from "../../models/RestApi/SolidityFinderApi/GetSolidity.model";
 import {SolidityFinderOptionsModel} from "../../models/Options/SolidityFinderOptions.model";
 
 export const FetchSymbolsListAction = createAction(

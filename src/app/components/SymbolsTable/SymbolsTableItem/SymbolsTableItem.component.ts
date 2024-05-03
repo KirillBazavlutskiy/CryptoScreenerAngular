@@ -1,5 +1,5 @@
 import {Component, Input, OnChanges, SimpleChanges} from "@angular/core";
-import {SolidityModel} from "../../../models/RestApi/SolidityFinderModels.model";
+import {SolidityModel} from "../../../models/RestApi/SolidityFinderApi/GetSolidity.model";
 import {
   BinanceOrdersCalculatingKit
 } from "../../../services/BinanceServices/BinanceOrdersCalculationKit/BinanceOrdersCalculationKit.service";

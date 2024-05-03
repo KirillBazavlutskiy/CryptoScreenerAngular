@@ -1,6 +1,6 @@
 import {createReducer, on} from "@ngrx/store";
 import {ChangeSymbolPriceAction, DeleteSymbolAction, FetchSymbolsListSuccessAction} from "./SymbolsList.actions";
-import {SolidityModel} from "../../models/RestApi/SolidityFinderModels.model";
+import {SolidityModel} from "../../models/RestApi/SolidityFinderApi/GetSolidity.model";
 import {
   BinanceOrdersCalculatingKit
 } from "../../services/BinanceServices/BinanceOrdersCalculationKit/BinanceOrdersCalculationKit.service";

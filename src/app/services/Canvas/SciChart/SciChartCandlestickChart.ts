@@ -1,30 +1,33 @@
 import {
   CategoryAxis,
-  CursorModifier, EAnnotationLayer, easing,
+  CursorModifier,
   EAutoRange,
-  ECoordinateMode,
-  EHorizontalAnchorPoint,
   ENumericFormat,
-  EVerticalAnchorPoint,
   EXyDirection,
   FastCandlestickRenderableSeries,
   FastColumnRenderableSeries, HorizontalLineAnnotation,
   MouseWheelZoomModifier,
   NumberRange,
-  NumericAxis,
+  NumericAxis, NumericLabelProvider,
   OhlcDataSeries,
   SciChartSurface,
   SmartDateLabelProvider,
-  TextAnnotation,
   XyDataSeries,
   ZoomExtentsModifier,
   ZoomPanModifier
 } from "scichart";
 import {CustomChartTheme} from "../../../models/Canvas/CustomChartTheme.model";
-import {CandleChartInterval, CandlestickBinanceData} from "../../../models/RestApi/CandlestickData.model";
-import {SolidityModel} from "../../../models/RestApi/SolidityFinderModels.model";
-import {last} from "rxjs";
-import {WebSocketKlineModel} from "../../../models/Websocket/BinanceStreamKlines";
+import {SolidityModel} from "../../../models/RestApi/SolidityFinderApi/GetSolidity.model";
+import {WebSocketKlineModel} from "../../../models/Websocket/Binance/StreamKlines";
+import {CandlestickBinanceData} from "../../../models/RestApi/Binance/Klines.model";
+
+function formatAxisValue(value: number): number {
+  if (value === 0) return 0;
+  const strValue = value.toString();
+  if (!strValue.includes(".")) return 0;
+  const dotIndex = strValue.indexOf(".");
+  return strValue.length - dotIndex - 1;
+}
 
 export async function initEmptyCandlestickChart(chartId: string) {
   SciChartSurface.useWasmFromCDN();
@@ -148,11 +151,11 @@ export async function initEmptyCandlestickChart(chartId: string) {
 export const refillCandleStickChart = (
   CandlestickData: CandlestickBinanceData[],
   sciChartSurface: SciChartSurface,
-  xAxis: CategoryAxis,
   candlestickDataSeries: OhlcDataSeries,
   volumeDataSeries: XyDataSeries,
   solidityInfo: SolidityModel,
-  chartTimeframe: CandleChartInterval
+  yAxis: NumericAxis,
+  tickSize: number
 ) => {
   const xValues = CandlestickData.map(candle => new Date(candle[0]).getTime() / 1000);
   const openValues = CandlestickData.map(candle => Number(candle[1]));
@@ -183,6 +186,10 @@ export const refillCandleStickChart = (
     axisLabelFill: "#2563e8",
     axisLabelStroke: "#fff"
   });
+
+  yAxis.labelProvider = new NumericLabelProvider({
+    labelPrecision: formatAxisValue(tickSize)
+  })
 
   sciChartSurface.annotations.add(horizontalLineAnnotation);
 
