@@ -11,7 +11,7 @@
     <div
       class="inline aspect-square w-[16px] border-[2px] border-[#fff] rounded-full mr-[6px]"
       [ngStyle]="{
-        'backgroundColor': getSolidityDistanceColor(symbolTicket.Solidity.UpToPrice)
+        'backgroundColor': getSolidityDistanceColor(symbolTicket.Solidity.Type, symbolTicket.Solidity.UpToPrice)
       }"
     ></div>
     <span class="text-white">{{symbolTicket.Symbol}}</span>

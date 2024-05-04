@@ -9,7 +9,7 @@
     <div
       class="h-full w-[6px]"
       [ngStyle]="{
-        'backgroundColor': getSolidityDistanceColor(solidityInfo.Solidity.UpToPrice)
+        'backgroundColor': getSolidityDistanceColor(solidityInfo.Solidity.Type, solidityInfo.Solidity.UpToPrice)
       }"
     ></div>
     <span class="text-white text-usm">{{solidityInfo.Symbol}}</span>

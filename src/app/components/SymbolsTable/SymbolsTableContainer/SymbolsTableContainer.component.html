@@ -8,6 +8,8 @@
     @for (solidityModel of symbolsList$ | async; track solidityModel.QuoteVolume) {
       <app-symbols-table-item
         [solidityInfo]="solidityModel"
+        [getSolidityDistanceColor]="getSolidityDistanceColor"
+        [getSolidityRatioColor]="getSolidityRatioColor"
       ></app-symbols-table-item>
     }
   </div>
