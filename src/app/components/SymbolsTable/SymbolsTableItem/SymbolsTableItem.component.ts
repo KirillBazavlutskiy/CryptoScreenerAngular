@@ -1,5 +1,5 @@
-import {Component, Input, OnChanges, SimpleChanges} from "@angular/core";
-import {SolidityModel} from "../../../models/RestApi/SolidityFinderApi/GetSolidity.model";
+import {ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges} from "@angular/core";
+import {LimitType, SolidityModel} from "../../../models/RestApi/SolidityFinderApi/GetSolidity.model";
 import {
   BinanceOrdersCalculatingKit
 } from "../../../services/BinanceServices/BinanceOrdersCalculationKit/BinanceOrdersCalculationKit.service";
@@ -8,9 +8,6 @@ import {Store} from "@ngrx/store";
 import {StoreModel} from "../../../store/Store.model";
 import {selectedSymbolAction} from "../../../store/SelectedSymbol/SelectedSymbol.actions";
 import {DeleteSymbolAction} from "../../../store/SymbolsList/SymbolsList.actions";
-import {Observable} from "rxjs";
-import {StylingOptionsModel} from "../../../models/Options/StylingOptions.model";
-import {getLevelColor} from "../../../services/Styling/GetColorStyle";
 
 @Component({
   selector: 'app-symbols-table-item',
@@ -20,35 +17,21 @@ import {getLevelColor} from "../../../services/Styling/GetColorStyle";
     AsyncPipe,
     NgStyle
   ],
-  templateUrl: 'SymbolsTableItem.component.html'
+  templateUrl: 'SymbolsTableItem.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class SymbolsTableItemComponent implements OnChanges {
   @Input() solidityInfo!: SolidityModel;
+  @Input() getSolidityDistanceColor!: (solidityType: LimitType, value: number) => string;
+  @Input() getSolidityRatioColor!: (value: number) => string;
   binanceOrdersCalculatingKit: BinanceOrdersCalculatingKit;
-  stylingOptions$: Observable<StylingOptionsModel>;
-
-  getSolidityDistanceColor: (value: number) => string;
-  getSolidityRatioColor: (value: number) => string;
 
   ClickHandler: () => void;
 
   constructor(
     private store: Store<StoreModel>,
   ) {
-    this.getSolidityDistanceColor = (value: number) => "";
-    this.getSolidityRatioColor = (value: number) => "";
-
-    this.stylingOptions$ = this.store.select(store => store.stylingOptions);
-
-    this.stylingOptions$.subscribe(newStylingOptions => {
-      this.getSolidityDistanceColor = (value: number) => {
-        if (this.solidityInfo.Solidity.Type === "asks") return getLevelColor(value, newStylingOptions.upToPrice.asks)
-        else return getLevelColor(value, newStylingOptions.upToPrice.bids)
-      }
-      this.getSolidityRatioColor = (value: number) => getLevelColor(value, newStylingOptions.solidityRatio)
-    })
-
     this.binanceOrdersCalculatingKit = new BinanceOrdersCalculatingKit();
     this.ClickHandler = () => {
       this.store.dispatch(selectedSymbolAction({ solidityInfo: this.solidityInfo }));
