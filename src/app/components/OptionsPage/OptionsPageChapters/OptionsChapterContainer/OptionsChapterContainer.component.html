@@ -1,0 +1,18 @@
+<div class="w-full h-full overflow-y-scroll no-scrollbar">
+  <app-options-solidity-finder-chapter
+    class="max-w-full w-full h-full"
+    [ngClass]="
+    {
+    'block': activeOptionChapter == 'SolidityFinderOptionsChapter',
+    'hidden': activeOptionChapter != 'SolidityFinderOptionsChapter'
+    }"
+  ></app-options-solidity-finder-chapter>
+  <app-solidity-ticket-card-chapter-settings
+    class="max-w-full w-full h-full"
+    [ngClass]="
+    {
+    'block': activeOptionChapter == 'SolidityTicketCardOptionsChapter',
+    'hidden': activeOptionChapter != 'SolidityTicketCardOptionsChapter'
+    }"
+  ></app-solidity-ticket-card-chapter-settings>
+</div>

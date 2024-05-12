@@ -1,0 +1,35 @@
+<div class="w-full h-full">
+  <div class="w-full">
+    <h4 class="text-white text-base font-semibold mb-[10px]">Solidity Ratio Painting Levels</h4>
+    @if (stylingOptions) {
+      <app-options-styling-breakpoints-container [stylingBreakpoint]="stylingOptions.solidityRatio">
+      </app-options-styling-breakpoints-container>
+    }
+  </div>
+  <div class="w-full flex flex-col lg:flex-row lg:gap-[20px]">
+    @if (stylingOptions) {
+      <div class="lg:w-1/2">
+        <h4  class="text-white text-base font-semibold mb-[10px]">Solidity Distance In Asks</h4>
+        <app-options-styling-breakpoints-container
+          [stylingBreakpoint]="stylingOptions.upToPrice.asks"
+        >
+        </app-options-styling-breakpoints-container>
+      </div>
+    }
+    @if (stylingOptions) {
+      <div class="lg:w-1/2">
+        <h4 class="text-white text-base font-semibold mb-[10px]">Solidity Distance In Bids</h4>
+        <app-options-styling-breakpoints-container
+          [stylingBreakpoint]="stylingOptions.upToPrice.bids"
+        >
+        </app-options-styling-breakpoints-container>
+      </div>
+    }
+  </div>
+  <div class="w-full flex justify-center">
+    <app-options-button
+      class="text-white"
+      [clickHandler]="setNewStylingOptionsCLickHandler"
+    >Apply</app-options-button>
+  </div>
+</div>

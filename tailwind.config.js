@@ -6,7 +6,8 @@ module.exports = {
   theme: {
     extend: {
       screens: {
-        usm: "400px"
+        usm: "400px",
+        fhd: "1920px"
       },
       fontSize: {
         usm: "10px"

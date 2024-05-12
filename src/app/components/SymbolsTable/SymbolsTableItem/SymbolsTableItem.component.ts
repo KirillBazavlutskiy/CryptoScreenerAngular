@@ -18,7 +18,7 @@ import {DeleteSymbolAction} from "../../../store/SymbolsList/SymbolsList.actions
     NgStyle
   ],
   templateUrl: 'SymbolsTableItem.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.Default
 })
 
 export class SymbolsTableItemComponent implements OnChanges {

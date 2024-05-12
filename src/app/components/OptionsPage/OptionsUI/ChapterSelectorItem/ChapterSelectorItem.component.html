@@ -1,0 +1,19 @@
+@if (!isMobile) {
+  <div
+    class="w-full min-h-[32px] flex justify-center items-center transition-colors bg-gray-800 hover:bg-blue-600 px-[10px]"
+    (click)="switchActivePageClickHandler(pageKey)"
+  >
+    <button class="text-sm bg-transparent text-white">{{buttonText}}</button>
+  </div>
+}
+@if (isMobile) {
+  <div
+    class="w-full min-h-[40px] flex justify-between items-center bg-transparent pl-[14px] pr-[10px]"
+    (click)="switchActivePageClickHandler(pageKey)"
+  >
+    <button class="text-base bg-transparent text-white">{{buttonText}}</button>
+    <img
+      ngSrc="../../../../../assets/svg/chevron.svg" alt=">" width="22" height="22"
+    >
+  </div>
+}

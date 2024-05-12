@@ -1,0 +1,20 @@
+<div class="mb-[20px] flex flex-col gap-[10px]">
+  <div
+    *ngFor="let styleLevel of stylingBreakpoint"
+    class="w-full flex justify-between items-center gap-[10px]"
+  >
+    <div class="flex gap-[15px] items-center">
+      <p class="text-white text-sm">From</p>
+      <app-options-input
+        inputType="number"
+        [(ngModel)]="styleLevel.value"
+      />
+    </div>
+    <div>
+      <app-options-input
+        inputType="color"
+        [(ngModel)]="styleLevel.color"
+      />
+    </div>
+  </div>
+</div>

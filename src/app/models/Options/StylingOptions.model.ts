@@ -1,12 +1,12 @@
-export interface PaintingLevel {
+export interface PaintingBreakpoint {
   value: number,
   color: string;
 }
 
 export interface StylingOptionsModel {
   upToPrice: {
-    asks: PaintingLevel[],
-    bids: PaintingLevel[]
+    asks: PaintingBreakpoint[],
+    bids: PaintingBreakpoint[]
   },
-  solidityRatio: PaintingLevel[]
+  solidityRatio: PaintingBreakpoint[]
 }

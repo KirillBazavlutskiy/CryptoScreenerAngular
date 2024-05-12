@@ -1,0 +1,12 @@
+<div
+  class="w-full h-full bg-gray-900 flex flex-col overflow-y-scroll no-scrollbar"
+>
+  @for (optionsChapter of optionsChapters; track optionsChapter.pageKey) {
+    <app-options-chapter-selector-item
+      [isMobile]="true"
+      [switchActivePageClickHandler]="switchActiveOptionsChapterHandler"
+      [buttonText]="optionsChapter.buttonText"
+      [pageKey]="optionsChapter.pageKey"
+    ></app-options-chapter-selector-item>
+  }
+</div>
