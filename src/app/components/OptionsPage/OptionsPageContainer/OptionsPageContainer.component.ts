@@ -8,10 +8,35 @@ import {switchOptionsPageAction} from "../../../store/ActivePage/ActivePages.act
 import {
   SolidityFinderSettingsChapterComponent
 } from "../OptionsPageChapters/SolidityFinderSettingsChapter/SolidityFinderSettingsChapter.component";
+import {
+  SolidityTicketCardSettingsChapterContainerComponent
+} from "../OptionsPageChapters/SolidityTicketCardSettingsChapter/SolidityTicketCardSettingsChapterContainer/SolidityTicketCardSettingsChapterContainer.component";
+import {ChapterSelectorItemComponent} from "../OptionsUI/ChapterSelectorItem/ChapterSelectorItem.component";
+import {ActiveChapterModel, ActiveOptionsChapter} from "../../../models/Options/OptionPagesType.model";
+import {
+  OptionsChapterContainerComponent
+} from "../OptionsPageChapters/OptionsChapterContainer/OptionsChapterContainer.component";
+import {
+  OptionsChapterSelectorContainerComponent
+} from "../OptionsChapterSelector/OptionsChapterSelectorContainer/OptionsChapterSelectorContainer.component";
+import {
+  OptionsChapterSelectorMobileComponent
+} from "../OptionsChapterSelector/OptionsChapterSelectorMobile/OptionsChapterSelectorMobile.component";
 
-type ActiveOptionsChapter =
-  "SolidityFinderChapter" |
-  "ChartOptionsChapter"
+const optionsChapters: ActiveChapterModel[] = [
+  {
+    buttonText: "Solidity Finder Options",
+    pageKey: "SolidityFinderOptionsChapter",
+  },
+  {
+    buttonText: "Solidity Card Options",
+    pageKey: "SolidityTicketCardOptionsChapter",
+  },
+  {
+    buttonText: "Chart Options",
+    pageKey: "ChartOptionsChapter",
+  },
+]
 
 @Component({
   selector: "app-options-page",
@@ -20,7 +45,12 @@ type ActiveOptionsChapter =
     NgClass,
     AsyncPipe,
     SolidityFinderSettingsChapterComponent,
-    NgOptimizedImage
+    NgOptimizedImage,
+    SolidityTicketCardSettingsChapterContainerComponent,
+    ChapterSelectorItemComponent,
+    OptionsChapterContainerComponent,
+    OptionsChapterSelectorContainerComponent,
+    OptionsChapterSelectorMobileComponent
   ],
   templateUrl: 'OptionsPageContainer.component.html'
 })
@@ -29,19 +59,30 @@ export class OptionsPageContainerComponent {
   activePages$: Observable<ActivePagesModel>;
   activeOptionChapter: ActiveOptionsChapter | null;
   closeWindowClickHandler: () => void;
+  isMobileChapterSelectorActive: boolean;
   constructor(
     store: Store<StoreModel>
   ) {
+    this.isMobileChapterSelectorActive = true;
     this.activeOptionChapter = null;
     this.activePages$ = store.select('activePages')
     this.closeWindowClickHandler = () => {
       store.dispatch(switchOptionsPageAction({pageState: false}))
     }
-    this.activePages$.subscribe(() => this.activeOptionChapter = "SolidityFinderChapter")
+    this.activePages$.subscribe(() => {
+      this.isMobileChapterSelectorActive = true;
+      this.activeOptionChapter = "SolidityFinderOptionsChapter"
+    })
   }
 
   switchActiveOptionsChapterHandler = (pageName: ActiveOptionsChapter) => {
+    this.isMobileChapterSelectorActive = false;
     this.activeOptionChapter = pageName;
   }
-  protected readonly switchOptionsPageAction = switchOptionsPageAction;
+
+  switchActiveOptionsChapterSelectorMobileHandler = () => {
+    this.isMobileChapterSelectorActive = true;
+  }
+
+  protected readonly optionsChapters = optionsChapters;
 }

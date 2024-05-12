@@ -1,48 +1,57 @@
 <div class="relative w-full h-full">
   <div
-    class="absolute z-30 translate transition-transform w-full h-full px-0 usm:px-[20px] flex justify-center items-center"
+    class="absolute z-30 translate transition-transform w-full h-full px-0 sm:px-[20px] flex justify-center items-center"
     [ngClass]="{
       'translate-y-[-100%]': !(activePages$ | async)?.optionsPage
     }"
   >
     <div
-      class="w-full max-w-[900px] h-full usm:h-[400px] bg-gray-900 rounded-lg flex flex-col justify-start"
+      class="w-full max-w-[900px] h-full sm:h-[400px] bg-gray-900 rounded-lg flex flex-col justify-start"
     >
       <div class="w-full h-[50px] flex justify-between items-center px-[10px]">
-        <h2 class="text-white font-semibold text-xl">Options</h2>
+        <div class="flex items-center gap-[10px]">
+          <div
+            class="bg-gray-500/20 hover:bg-gray-500/40 flex sm:hidden transition-all rounded-full items-center justify-center w-[30px] h-[30px] mt-[4px]"
+            [ngClass]="{
+              'opacity-20': isMobileChapterSelectorActive
+            }"
+            (click)="switchActiveOptionsChapterSelectorMobileHandler()"
+          >
+            <img
+              ngSrc="../../../../assets/svg/chevron.svg" alt=">" width="26" height="26"
+              class="rotate-180 mr-[2px]"
+            >
+          </div>
+          <h2 class="text-white font-semibold text-base usm:text-xl">Options</h2>
+        </div>
         <img
-          ngSrc="../../../../assets/svg/xMark.svg"
-          alt="X"
-          width="30"
-          height="30"
+          ngSrc="../../../../assets/svg/xMark.svg" alt="X" width="30" height="30"
           class="transition-transform hover:scale-125"
           (click)="closeWindowClickHandler()"
         />
       </div>
-      <div class="w-full h-[calc(100%_-_50px)] flex justify-start px-[10px] gap-[10px] pb-[10px]">
-        <div class="w-[200px] h-fit max-h-full flex flex-col rounded-lg overflow-y-scroll no-scrollbar">
-          <div
-            class="w-full min-h-[40px] flex justify-center items-center transition-colors bg-gray-800 hover:bg-blue-600 px-[10px]"
-            (click)="switchActiveOptionsChapterHandler('SolidityFinderChapter')"
-          >
-            <button class="text-sm bg-transparent text-white">Solidity Finder Options</button>
-          </div>
-          <div
-            class="w-full min-h-[40px] flex justify-center items-center transition-colors bg-gray-800 hover:bg-blue-600 px-[10px]"
-            (click)="switchActiveOptionsChapterHandler('ChartOptionsChapter')"
-          >
-            <button class="text-sm bg-transparent text-white">Chart Options</button>
-          </div>
+      <div class="relative w-full h-[calc(100%_-_50px)] flex justify-start px-[10px] gap-[10px] pb-[10px] overflow-hidden">
+        <div class="hidden sm:flex w-[200px] h-fit max-h-full flex-col rounded-lg overflow-y-scroll no-scrollbar">
+          <app-options-chapter-selector-container
+            class="w-[200px] h-fit max-h-full"
+            [switchActiveOptionsChapterHandler]="switchActiveOptionsChapterHandler"
+            [optionsChapters]="optionsChapters"
+          ></app-options-chapter-selector-container>
         </div>
-        <div class="w-[calc(100%_-_210px)] h-full overflow-y-scroll no-scrollbar">
-          <app-options-solidity-finder-chapter
-            class="max-w-full w-full h-full"
-            [ngClass]="{
-            'block': activeOptionChapter == 'SolidityFinderChapter',
-            'hidden': activeOptionChapter == 'ChartOptionsChapter'
+        <app-options-chapter-selector-mobile
+          class="absolute top-0 left-0 block sm:hidden w-full h-full transition-transform duration-100"
+          [ngClass]="{
+            'translate-x-[-100%]': !isMobileChapterSelectorActive
           }"
-          ></app-options-solidity-finder-chapter>
-        </div>
+          [switchActiveOptionsChapterHandler]="switchActiveOptionsChapterHandler"
+          [optionsChapters]="optionsChapters"
+        ></app-options-chapter-selector-mobile>
+        @if (activeOptionChapter) {
+          <app-options-chapter-container
+            class="w-full sm:w-[calc(100%_-_210px)] h-full"
+            [activeOptionChapter]="activeOptionChapter"
+          ></app-options-chapter-container>
+        }
       </div>
     </div>
   </div>

@@ -1,5 +1,5 @@
 <div
-  class="w-full h-[20px] flex justify-between items-center border-[2px] hover:bg-gray-600 overflow-hidden transition-colors rounded-md"
+  class="w-full h-[18px] flex justify-between items-center border-gray-500 border-[1px] hover:bg-gray-600 overflow-hidden transition-colors rounded-md"
   [ngStyle]="{
     'backgroundColor': getSolidityRatioColor(solidityInfo.Solidity.Ratio)
   }"
@@ -15,8 +15,9 @@
     <span class="text-white text-usm">{{solidityInfo.Symbol}}</span>
   </div>
   <div class="flex h-full items-center gap-[5px] pr-[4px]">
-    <span class="text-white text-right text-usm w-[20px]">{{this.binanceOrdersCalculatingKit.RoundUp(this.solidityInfo.Solidity.Ratio, 1)}}</span>
-    <span class="text-white text-right text-usm w-[20px]">{{this.binanceOrdersCalculatingKit.RoundUp(this.solidityInfo.Solidity.UpToPrice, 1)}}</span>
-    <span class="text-white text-right text-usm w-[50px]">{{solidityInfo.Price}}</span>
+    <span class="text-white text-right text-usm w-[42px]">{{binanceOrdersCalculatingKit.RoundUp(solidityInfo.Solidity.Ratio, 1)}}</span>
+    <span class="text-white text-right text-usm w-[42px]">{{binanceOrdersCalculatingKit.RoundUp(solidityInfo.Solidity.UpToPrice, 1)}}%</span>
+    <span class="text-white text-right text-usm w-[42px]">{{binanceOrdersCalculatingKit.RoundUp(solidityInfo.QuoteVolume / 1000000, 1)}}M$</span>
+    <span class="text-white text-right text-usm w-[42px]">{{solidityInfo.Price}}</span>
   </div>
 </div>

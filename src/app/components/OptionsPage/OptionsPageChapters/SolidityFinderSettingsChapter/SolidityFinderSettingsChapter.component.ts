@@ -5,40 +5,33 @@ import {StoreModel} from "../../../../store/Store.model";
 import {Store} from "@ngrx/store";
 import {FetchSymbolsListAction} from "../../../../store/SymbolsList/SymbolsList.actions";
 import {switchOptionsPageAction} from "../../../../store/ActivePage/ActivePages.actions";
+import {OptionsButtonComponent} from "../../OptionsUI/OptionsButton/OptionsButton.component";
 
 @Component({
   selector: 'app-options-solidity-finder-chapter',
   standalone: true,
   imports: [
-    LabelComponentComponent
+    LabelComponentComponent,
+    OptionsButtonComponent
   ],
   templateUrl: 'SolidityFinderSettingsChapter.component.html'
 })
 
 export class SolidityFinderSettingsChapterComponent {
+  HandleClickApplyButton: () => void;
+
   constructor(
     private store: Store<StoreModel>
   ) {
+    this.HandleClickApplyButton = () => {
+      this.store.dispatch(FetchSymbolsListAction({ solidityFinderOptions: JSON.parse(JSON.stringify(this.SolidityFinderOptions)) }))
+    }
   }
 
   SolidityFinderOptions: SolidityFinderOptionsModel  = {
     MinVolume: 10,
-    RatioAccess: 15,
+    RatioAccess: 10,
     UpToPriceAccess: 5,
     NonConcernPeriodAccess: 4
-  }
-
-  ChangeSolidityFinderOptionsValue(key: keyof SolidityFinderOptionsModel, value: number) {
-    this.SolidityFinderOptions[key] = value;
-  }
-
-  ChangeMinVolumeValue = (value: number) => this.ChangeSolidityFinderOptionsValue("MinVolume", value);
-  ChangeRatioAccessValue = (value: number) => this.ChangeSolidityFinderOptionsValue("RatioAccess", value);
-  ChangeUpToPriceAccessValue = (value: number) => this.ChangeSolidityFinderOptionsValue("UpToPriceAccess", value);
-  ChangeNonConcernPeriodAccessValue = (value: number) => this.ChangeSolidityFinderOptionsValue("NonConcernPeriodAccess", value);
-
-  HandleClickApplyButton = () => {
-    this.store.dispatch(FetchSymbolsListAction({ solidityFinderOptions: JSON.parse(JSON.stringify(this.SolidityFinderOptions)) }))
-    this.store.dispatch(switchOptionsPageAction({ pageState: false }))
   }
 }

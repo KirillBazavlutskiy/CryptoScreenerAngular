@@ -1,9 +1,12 @@
 <div
-  class="w-full h-[25px] border border-transparent hover:bg-blue-500/50 duration-[.04s] flex justify-between items-center px-[10px]"
+  class="w-full h-[20px] border-[2px] hover:bg-gray-500/50 duration-[.04s] flex justify-between items-center px-[10px]"
   [ngStyle]="{
     'backgroundColor': (activeSymbol$ | async)?.Symbol === this.symbolTicket.Symbol ?
-      '#4b5563' :
-      getSolidityRatioColor(symbolTicket.Solidity.Ratio)
+      'transparent' :
+      getSolidityRatioColor(symbolTicket.Solidity.Ratio),
+    'border-color': (activeSymbol$ | async)?.Symbol === this.symbolTicket.Symbol ?
+      getSolidityRatioColor(symbolTicket.Solidity.Ratio) :
+      'transparent'
   }"
   (click)="ClickHandler()"
 >
@@ -14,7 +17,7 @@
         'backgroundColor': getSolidityDistanceColor(symbolTicket.Solidity.Type, symbolTicket.Solidity.UpToPrice)
       }"
     ></div>
-    <span class="text-white">{{symbolTicket.Symbol}}</span>
+    <span class="text-white text-sm">{{symbolTicket.Symbol}}</span>
   </div>
   <div class="flex justify-end items-center w-[140px] h-full">
     <span class="text-white text-right text-sm">{{binanceOrdersCalculatingKit.RoundUp(symbolTicket.Solidity.Ratio, 1)}}</span>

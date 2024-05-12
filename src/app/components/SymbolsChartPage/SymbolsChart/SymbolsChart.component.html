@@ -20,9 +20,9 @@
         <div class="h-[24px] hover:h-[124px] rounded-lg bg-blue-900 transition-all overflow-hidden">
           <div class="w-full h-[124px] flex flex-col justify-center items-center">
             <div class="w-full h-[24px] px-[8px] flex items-center justify-center">
-              <p class="text-white font-semibold text-sm">
+              <button class="bg-transparent border-none text-white font-semibold text-sm">
                 {{candleChartInterval.toUpperCase()}}
-              </p>
+              </button>
             </div>
             <div class="w-full h-[100px] overflow-y-scroll no-scrollbar flex flex-col justify-start items-center">
               @for (chartInterval of otherChartIntervals; track chartInterval) {
