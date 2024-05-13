@@ -1,7 +1,10 @@
 <div
   class="w-full h-[18px] flex justify-between items-center border-gray-500 border-[1px] hover:bg-gray-600 overflow-hidden transition-colors rounded-md"
   [ngStyle]="{
-    'backgroundColor': getSolidityRatioColor(solidityInfo.Solidity.Ratio)
+    'backgroundColor':
+      !isSolidityBroken ?
+        getSolidityRatioColor(solidityInfo.Solidity.Ratio) :
+        '#fca5a5'
   }"
   (click)="ClickHandler()"
 >
@@ -9,7 +12,10 @@
     <div
       class="h-full w-[6px]"
       [ngStyle]="{
-        'backgroundColor': getSolidityDistanceColor(solidityInfo.Solidity.Type, solidityInfo.Solidity.UpToPrice)
+        'backgroundColor':
+          !isSolidityBroken ?
+            getSolidityDistanceColor(solidityInfo.Solidity.Type, solidityInfo.Solidity.UpToPrice) :
+            'transparent'
       }"
     ></div>
     <span class="text-white text-usm">{{solidityInfo.Symbol}}</span>

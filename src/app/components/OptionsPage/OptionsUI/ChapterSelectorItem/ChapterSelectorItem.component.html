@@ -7,13 +7,13 @@
   </div>
 }
 @if (isMobile) {
-  <div
-    class="w-full min-h-[40px] flex justify-between items-center bg-transparent pl-[14px] pr-[10px]"
+  <button
+    class="w-full min-h-[40px] flex justify-between items-center bg-transparent hover:bg-gray-500/30 active:bg-gray-500/30 transition-colors pl-[14px] pr-[10px]"
     (click)="switchActivePageClickHandler(pageKey)"
   >
-    <button class="text-base bg-transparent text-white">{{buttonText}}</button>
+    <p class="text-base bg-transparent text-white">{{buttonText}}</p>
     <img
       ngSrc="../../../../../assets/svg/chevron.svg" alt=">" width="22" height="22"
     >
-  </div>
+  </button>
 }

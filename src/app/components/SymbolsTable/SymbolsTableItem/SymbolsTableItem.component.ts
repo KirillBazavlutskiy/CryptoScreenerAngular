@@ -26,6 +26,7 @@ export class SymbolsTableItemComponent implements OnChanges {
   @Input() getSolidityDistanceColor!: (solidityType: LimitType, value: number) => string;
   @Input() getSolidityRatioColor!: (value: number) => string;
   binanceOrdersCalculatingKit: BinanceOrdersCalculatingKit;
+  isSolidityBroken: boolean = false;
 
   ClickHandler: () => void;
 
@@ -39,8 +40,8 @@ export class SymbolsTableItemComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (this.solidityInfo.Solidity.UpToPrice < 0) {
-      this.store.dispatch(DeleteSymbolAction({ symbol: this.solidityInfo.Symbol }))
+    if (!this.isSolidityBroken && this.solidityInfo.Solidity.UpToPrice < 0) {
+      this.isSolidityBroken = true;
     }
   }
 }

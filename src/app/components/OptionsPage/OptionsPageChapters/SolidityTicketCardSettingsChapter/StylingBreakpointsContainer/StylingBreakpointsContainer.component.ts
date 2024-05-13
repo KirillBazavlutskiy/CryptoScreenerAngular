@@ -12,9 +12,21 @@ import {FormsModule} from "@angular/forms";
     OptionsInputComponent,
     FormsModule
   ],
-  templateUrl: "StylingBreakpointsContainer.component.html"
+  templateUrl: "StylingBreakpointsContainer.component.html",
+  styles: [
+    `.stylingBreakPointContainer:hover button {
+      @apply opacity-100;
+    }`,
+    `.stylingBreakPointContainer:active button {
+      @apply opacity-100;
+    }`
+  ]
 })
 
 export class StylingBreakpointsContainerComponent {
   @Input() stylingBreakpoint!: PaintingBreakpoint[];
+  deletePaintingBreakPoint = (index: number) => {
+    const confirmResult = confirm("Are you sure?");
+    if (confirmResult) this.stylingBreakpoint.splice(index, 1);
+  }
 }

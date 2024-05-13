@@ -1,5 +1,5 @@
 import {Component} from "@angular/core";
-import {SymbolsListItemComponent} from "../SymbolsListItem/symbolsListItem.component";
+import {SymbolsListItemComponent} from "../SymbolsListItem/SymbolsListItem.component";
 import {AsyncPipe, NgForOf} from "@angular/common";
 import {LimitType, SolidityModel} from "../../../models/RestApi/SolidityFinderApi/GetSolidity.model";
 import {Observable} from "rxjs";

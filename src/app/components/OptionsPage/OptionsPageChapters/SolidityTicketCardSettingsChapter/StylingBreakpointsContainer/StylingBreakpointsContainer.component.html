@@ -1,7 +1,7 @@
-<div class="mb-[20px] flex flex-col gap-[10px]">
+<div class="mb-[10px] flex flex-col gap-[10px]">
   <div
-    *ngFor="let styleLevel of stylingBreakpoint"
-    class="w-full flex justify-between items-center gap-[10px]"
+    *ngFor="let styleLevel of stylingBreakpoint; let i = index"
+    class="stylingBreakPointContainer w-full flex justify-between items-center gap-[10px]"
   >
     <div class="flex gap-[15px] items-center">
       <p class="text-white text-sm">From</p>
@@ -9,6 +9,10 @@
         inputType="number"
         [(ngModel)]="styleLevel.value"
       />
+      <button
+        (click)="deletePaintingBreakPoint(i)"
+        class="opacity-0 text-white text-sm px-[10px] py-[2px] bg-gray-500/20 hover:bg-gray-500/40 transition-colors rounded-lg"
+      >Delete</button>
     </div>
     <div>
       <app-options-input
