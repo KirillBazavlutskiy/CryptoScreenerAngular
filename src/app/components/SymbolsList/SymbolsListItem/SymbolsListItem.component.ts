@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input} from "@angular/core";
+import {ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges} from "@angular/core";
 import {LimitType, SolidityModel} from "../../../models/RestApi/SolidityFinderApi/GetSolidity.model";
 import {
   BinanceOrdersCalculatingKit
@@ -18,16 +18,17 @@ import {getLevelColor} from "../../../services/Styling/GetColorStyle";
     AsyncPipe,
     NgStyle
   ],
-  templateUrl: 'symbolsListItem.component.html',
+  templateUrl: 'SymbolsListItem.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class SymbolsListItemComponent {
+export class SymbolsListItemComponent implements OnChanges {
   @Input() symbolTicket!: SolidityModel;
   @Input() getSolidityDistanceColor!: (solidityType: LimitType, value: number) => string;
   @Input() getSolidityRatioColor!: (value: number) => string;
   binanceOrdersCalculatingKit: BinanceOrdersCalculatingKit;
   activeSymbol$: Observable<SolidityModel | null>;
+  isSolidityBroken: boolean = false;
 
   ClickHandler: () => void;
 
@@ -42,4 +43,10 @@ export class SymbolsListItemComponent {
     this.binanceOrdersCalculatingKit = new BinanceOrdersCalculatingKit();
   }
   protected readonly getLevelColor = getLevelColor;
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (!this.isSolidityBroken && this.symbolTicket.Solidity.UpToPrice < 0) {
+      this.isSolidityBroken = true;
+    }
+  }
 }

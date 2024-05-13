@@ -10,6 +10,9 @@ import {OptionsButtonComponent} from "../../../OptionsUI/OptionsButton/OptionsBu
 import {
   StylingBreakpointsContainerComponent
 } from "../StylingBreakpointsContainer/StylingBreakpointsContainer.component";
+import {
+  CreateNewPaintBreakpointButtonComponent
+} from "../CreateNewPaintBreakpointButton/CreateNewPaintBreakpointButton.component";
 
 @Component({
   selector: "app-solidity-ticket-card-chapter-settings",
@@ -20,7 +23,8 @@ import {
     FormsModule,
     OptionsInputComponent,
     OptionsButtonComponent,
-    StylingBreakpointsContainerComponent
+    StylingBreakpointsContainerComponent,
+    CreateNewPaintBreakpointButtonComponent
   ],
   templateUrl: "SolidityTicketCardSettingsChapterContainer.component.html"
 })
@@ -38,6 +42,7 @@ export class SolidityTicketCardSettingsChapterContainerComponent {
     this.setNewStylingOptionsCLickHandler = () => {
       if (this.stylingOptions) {
         this.store.dispatch(setStylingOptions({ stylingOptions: this.stylingOptions }))
+        alert("Applied!")
       }
     }
   }

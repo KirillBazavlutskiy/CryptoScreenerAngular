@@ -1,12 +1,15 @@
 <div class="w-full h-full">
-  <div class="w-full">
+  <div class="w-full mb-[20px]">
     <h4 class="text-white text-base font-semibold mb-[10px]">Solidity Ratio Painting Levels</h4>
     @if (stylingOptions) {
       <app-options-styling-breakpoints-container [stylingBreakpoint]="stylingOptions.solidityRatio">
       </app-options-styling-breakpoints-container>
+      <app-options-create-new-paint-breakpoint-button
+        [currentBreakpointsList]="stylingOptions.solidityRatio"
+      ></app-options-create-new-paint-breakpoint-button>
     }
   </div>
-  <div class="w-full flex flex-col lg:flex-row lg:gap-[20px]">
+  <div class="w-full mb-[20px] flex flex-col lg:flex-row gap-[20px]">
     @if (stylingOptions) {
       <div class="lg:w-1/2">
         <h4  class="text-white text-base font-semibold mb-[10px]">Solidity Distance In Asks</h4>
@@ -14,6 +17,9 @@
           [stylingBreakpoint]="stylingOptions.upToPrice.asks"
         >
         </app-options-styling-breakpoints-container>
+        <app-options-create-new-paint-breakpoint-button
+          [currentBreakpointsList]="stylingOptions.upToPrice.asks"
+        ></app-options-create-new-paint-breakpoint-button>
       </div>
     }
     @if (stylingOptions) {
@@ -23,6 +29,9 @@
           [stylingBreakpoint]="stylingOptions.upToPrice.bids"
         >
         </app-options-styling-breakpoints-container>
+        <app-options-create-new-paint-breakpoint-button
+          [currentBreakpointsList]="stylingOptions.upToPrice.bids"
+        ></app-options-create-new-paint-breakpoint-button>
       </div>
     }
   </div>

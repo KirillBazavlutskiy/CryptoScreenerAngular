@@ -25,6 +25,7 @@ export class SolidityFinderSettingsChapterComponent {
   ) {
     this.HandleClickApplyButton = () => {
       this.store.dispatch(FetchSymbolsListAction({ solidityFinderOptions: JSON.parse(JSON.stringify(this.SolidityFinderOptions)) }))
+      alert("Applied!")
     }
   }
 

@@ -3,18 +3,23 @@
   [ngStyle]="{
     'backgroundColor': (activeSymbol$ | async)?.Symbol === this.symbolTicket.Symbol ?
       'transparent' :
-      getSolidityRatioColor(symbolTicket.Solidity.Ratio),
+      !isSolidityBroken ?
+        getSolidityRatioColor(symbolTicket.Solidity.Ratio) :
+        '#fca5a5',
     'border-color': (activeSymbol$ | async)?.Symbol === this.symbolTicket.Symbol ?
-      getSolidityRatioColor(symbolTicket.Solidity.Ratio) :
-      'transparent'
+        !isSolidityBroken ?
+            getSolidityRatioColor(symbolTicket.Solidity.Ratio) :
+            '#fca5a5' :
+        'transparent'
   }"
   (click)="ClickHandler()"
 >
   <div class="h-full flex items-center">
     <div
-      class="inline aspect-square w-[16px] border-[2px] border-[#fff] rounded-full mr-[6px]"
+      class="inline aspect-square w-[16px] border-[2px] border-[#fff] rounded-full mr-[6px] transition-all"
       [ngStyle]="{
-        'backgroundColor': getSolidityDistanceColor(symbolTicket.Solidity.Type, symbolTicket.Solidity.UpToPrice)
+        'backgroundColor': getSolidityDistanceColor(symbolTicket.Solidity.Type, symbolTicket.Solidity.UpToPrice),
+        'opacity-0': isSolidityBroken
       }"
     ></div>
     <span class="text-white text-sm">{{symbolTicket.Symbol}}</span>
